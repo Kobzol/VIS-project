@@ -1,0 +1,110 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel} % francais, polish, spanish, ...
+\usepackage[T1]{fontenc}
+
+\usepackage{lmodern} % Type1-font for non-english texts and characters
+
+\usepackage{enumitem} % enumerations
+
+\title{Informační systém pro střední školy} % název
+\author{Jakub Beránek} % autor
+\date{2015} %datum
+
+\begin{document}
+	\maketitle
+	
+	\section{Vize}
+	Tento dokument popisuje informační systém pro střední školy, který bude sloužit k evidenci informací o studiu.
+	Tento systém je potřebný pro zefektivnění komunikace mezi studenty a učiteli, zajištění centrální správy
+	údajů o studiu a zajištění rychlého přístupu k těmto údajům.
+	Využívat ho budou učitelé a studenti, pro obě dvě skupiny bude systém poskytovat odlišnou sadu funkcí.
+	O správu účtů a konfiguraci celého systému se budou starat administrátoři.
+	
+	\vspace{5mm} %5mm vertical space
+	
+	Učitelům bude nabízet správu známek studentů, zadávání jejich absence, přidávání upozornění na blížící se testy a úpravu rozvrhů.
+	Studentům bude systém zobrazovat jejich známky, počítat jejich průměry, vypočítávat a upozorňovat na absenci v předmětech,
+	zobrazovat rozvrh, suplování a testy zadané učiteli. Administrátoři budou mít možnost spravovat uživatelské účty, předměty, třídy a konfigurovat
+	celý systém.
+	
+	\vspace{5mm} %5mm vertical space
+	
+	Aplikace bude běžet na serverech školy, uživatelé k ní budou moci přistupovat přes webové rozhraní a mobilní aplikaci.
+	Jelikož je potřeba, aby učitelé mohli zadávat známky a testy bez omezení a studenti jej budou využívat dennodenně k získání
+	aktuálních informací o studiu, aplikace bude dostupná neustále.
+	
+	\section{Use case model}
+	\subsection{Use case}
+	\subsubsection*{UC0: Přihlásit uživatele}
+	\begin{description}
+		\item[Popis:] Uživatel se přihlásí do systému
+		\item[Aktéři:] Uživatel, systém
+		\item[Prekondice:] Uživatel není přihlášený
+		\item[Scénář:] \hfill \\
+				\begin{enumerate}
+					\item Systém uživatelovi zobrazí přihlašovací dialog
+					\item Uživatel vyplní přihlašovací jméno, heslo a údaj, jestli má být jeho přihlášení zapamatováno
+					\item Uživatel odešle údaje
+					\item Systém zvaliduje zadané údaje
+					\item Systém zkontroluje existenci uživatele a platnost jeho hesla
+					\item Systém si zapamatuje přihlášení uživatele
+					\item Systém uživatelovi zobrazí úvodní dialog systému
+				\end{enumerate}
+		\item[Alternativní scénář:] \hfill \\
+				\begin{enumerate}
+					\setcounter{enumi}{4}
+					\setcounter{enumii}{0}
+					\begin{enumerate}[label*=\arabic*.,leftmargin=8pt]
+						\item
+						\begin{enumerate}[label=\alph*.]
+							\item Zadané údaje neprošly validací
+							\item Systém zobrazí upozornění uživatelovi a vrátí se k bodu 2
+						\end{enumerate}
+						\setcounter{enumi}{5}
+						\setcounter{enumii}{0}
+						\item
+						\begin{enumerate}[label=\alph*.]
+							\item Uživatel neexistuje nebo heslo není platné
+							\item Systém zobrazí upozornění uživatelovi a vrátí se k bodu 2
+						\end{enumerate}
+						\setcounter{enumi}{6}
+						\setcounter{enumii}{0}
+						\item
+						\begin{enumerate}[label=\alph*.]
+							\item Uživatel nesouhlasil se zapamatováním přihlášení
+							\item Systém jde rovnou k bodu 7
+						\end{enumerate}
+					\end{enumerate}		
+				\end{enumerate}
+	\end{description}
+	\subsubsection*{UC2: Přidat známky nanečisto}
+	\begin{description}
+		\item[Popis:] Student vytvoří známku nanečisto a systém vypočte jeho hypotetický průměr s touto známkou
+		\item[Aktéři:] Student, systém
+		\item[Prekondice:] Student je přihlášený
+		\item[Scénář:] \hfill \\
+				\begin{enumerate}
+					\item Systém studentovi zobrazí seznam jeho známek (viz UC1)
+					\item Student zvolí předmět, ke kterému chce přidat známku
+					\item Student vyplní hodnotu a váhu známky
+					\item Student potvrdí vytvoření známky
+					\item Systém zvaliduje zadanou známku
+					\item Systém vypočte nový průměr známek studenta
+					\item Systém zobrazí nový průměr studentovi
+				\end{enumerate}
+		\item[Alternativní scénář:] \hfill \\
+				\begin{enumerate}
+					\setcounter{enumi}{5}
+					\setcounter{enumii}{1}
+					\begin{enumerate}[label*=\arabic*.,leftmargin=8pt]
+						\item
+							\begin{enumerate}[label=\alph*.]
+								\item Známka zadaná studentem nemá platnou hodnotu
+								\item Systém zobrazí upozornění studentovi a vrátí se k bodu 3
+							\end{enumerate}
+					\end{enumerate}		
+				\end{enumerate}
+	\end{description}
+\end{document}
