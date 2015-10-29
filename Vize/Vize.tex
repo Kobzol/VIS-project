@@ -1,20 +1,22 @@
-\documentclass[a4paper,10pt]{article}
+\documentclass[a4paper,10pt,titlepage]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[czech]{babel} % francais, polish, spanish, ...
 \usepackage[T1]{fontenc}
 
 \usepackage{lmodern} % Type1-font for non-english texts and characters
-
 \usepackage{enumitem} % enumerations
+\usepackage{graphicx} % images
 
-\title{Informační systém pro střední školy} % název
+\graphicspath{ {images/} }
+
+\title{Vývoj informačních systémů\\Informační systém pro střední školy} % název
 \author{Jakub Beránek} % autor
 \date{2015} %datum
 
 \begin{document}
-	\maketitle
-	
+    \maketitle
+
 	\section{Vize}
 	Tento dokument popisuje informační systém pro střední školy, který bude sloužit k evidenci informací o studiu.
 	Tento systém je potřebný pro zefektivnění komunikace mezi studenty a učiteli, zajištění centrální správy
@@ -31,18 +33,20 @@
 	
 	\vspace{5mm} %5mm vertical space
 	
-	Aplikace bude běžet na serverech školy, uživatelé k ní budou moci přistupovat přes webové rozhraní a mobilní aplikaci.
+	Aplikace bude běžet na serveru školy, uživatelé k ní budou moci přistupovat přes webové rozhraní a mobilní aplikaci.
 	Jelikož je potřeba, aby učitelé mohli zadávat známky a testy bez omezení a studenti jej budou využívat dennodenně k získání
 	aktuálních informací o studiu, aplikace bude dostupná neustále.
 	
-	\section{Use case model}
-	\subsection{Use case}
-	\subsubsection*{UC0: Přihlásit uživatele}
+	\section{Funkční specifikace}
+	\subsection{Use case diagram}
+		\includegraphics[width=\textwidth]{vis_use_case_diagram}
+	\subsection{Případy použití}
+	\subsubsection*{UC0: Přihlásit se do systému}
 	\begin{description}
 		\item[Popis:] Uživatel se přihlásí do systému
 		\item[Aktéři:] Uživatel, systém
 		\item[Prekondice:] Uživatel není přihlášený
-		\item[Scénář:] \hfill \\
+		\item[Scénář:] \hfill
 				\begin{enumerate}
 					\item Systém uživatelovi zobrazí přihlašovací dialog
 					\item Uživatel vyplní přihlašovací jméno, heslo a údaj, jestli má být jeho přihlášení zapamatováno
@@ -52,11 +56,11 @@
 					\item Systém si zapamatuje přihlášení uživatele
 					\item Systém uživatelovi zobrazí úvodní dialog systému
 				\end{enumerate}
-		\item[Alternativní scénář:] \hfill \\
+		\item[Alternativní scénář:] \hfill
 				\begin{enumerate}
 					\setcounter{enumi}{4}
 					\setcounter{enumii}{0}
-					\begin{enumerate}[label*=\arabic*.,leftmargin=8pt]
+					\item \begin{enumerate}[label*=\arabic*.,leftmargin=8pt]
 						\item
 						\begin{enumerate}[label=\alph*.]
 							\item Zadané údaje neprošly validací
@@ -79,12 +83,16 @@
 					\end{enumerate}		
 				\end{enumerate}
 	\end{description}
+	\subsubsection*{Aktivitní diagram}
+	\includegraphics[width=\textwidth]{vis_uc0_activity}
+	\vspace{5mm}
+	
 	\subsubsection*{UC2: Přidat známky nanečisto}
 	\begin{description}
 		\item[Popis:] Student vytvoří známku nanečisto a systém vypočte jeho hypotetický průměr s touto známkou
 		\item[Aktéři:] Student, systém
 		\item[Prekondice:] Student je přihlášený
-		\item[Scénář:] \hfill \\
+		\item[Scénář:] \hfill
 				\begin{enumerate}
 					\item Systém studentovi zobrazí seznam jeho známek (viz UC1)
 					\item Student zvolí předmět, ke kterému chce přidat známku
@@ -94,11 +102,11 @@
 					\item Systém vypočte nový průměr známek studenta
 					\item Systém zobrazí nový průměr studentovi
 				\end{enumerate}
-		\item[Alternativní scénář:] \hfill \\
+		\item[Alternativní scénář:] \hfill
 				\begin{enumerate}
 					\setcounter{enumi}{5}
 					\setcounter{enumii}{1}
-					\begin{enumerate}[label*=\arabic*.,leftmargin=8pt]
+					\item \begin{enumerate}[label*=\arabic*.,leftmargin=8pt]
 						\item
 							\begin{enumerate}[label=\alph*.]
 								\item Známka zadaná studentem nemá platnou hodnotu
@@ -107,4 +115,100 @@
 					\end{enumerate}		
 				\end{enumerate}
 	\end{description}
+	\subsubsection*{Aktivitní diagram}
+	\includegraphics[width=\textwidth]{vis_uc2_activity}
+	\vspace{5mm}
+	
+	\subsubsection*{UC9: Přidat suplování}
+	\begin{description}
+		\item[Popis:] Učitel přidá do rozvrhu informaci o tom, že nebude danou vyučovací hodinu vyučovat
+		\item[Aktéři:] Učitel, systém
+		\item[Prekondice:] Učitel je přihlášený
+		\item[Scénář:] \hfill
+				\begin{enumerate}
+					\item Systém učitelovi zobrazí jeho rozvrh (viz UC8)
+					\item Učitel zvolí vyučovací hodinu, pro kterou chce zadat suplování
+					\item Učitel odešle údaje
+					\item Systém uživatelovi zobrazí seznam učitelů, kteří v danou dobu nevyučují a můžou ho suplovat
+					\item Učitel zvolí učitele, který ho bude suplovat
+					\item Systém uloží údaje
+					\item Systém odešle e-mail zvolenému učiteli, aby o daném suplování věděl
+				\end{enumerate}
+		\item[Alternativní scénář:] \hfill
+				\begin{enumerate}
+					\setcounter{enumi}{4}
+					\setcounter{enumii}{1}
+					\item \begin{enumerate}[label*=\arabic*.,leftmargin=8pt]
+						\item
+							\begin{enumerate}[label=\alph*.]
+								\item Žádný jiný učitel v danou dobu není dostupný
+								\item Systém nastaví, že daná hodina odpadne a přejde k bodu 6
+							\end{enumerate}
+					\end{enumerate}		
+				\end{enumerate}
+	\end{description}
+	\subsubsection*{Aktivitní diagram}
+	\includegraphics[width=\textwidth]{vis_uc9_activity}
+	\vspace{5mm}
+	
+	\section{Technická specifikace}
+	\subsection{Konceptuální model domény}
+			\includegraphics[width=\textwidth]{vis_conceptual_domain_model}
+	\subsection{Technologie}
+		Systém bude vytvořen pomocí technologie .NET v jazyce C\#. Jako databáze bude použit Microsoft SQL Server, jelikož má dobrou
+		kompatibilitu s platformou .NET. Systém nebude muset ukládat velké objemy dat, postačí tedy verze SQL Server Express, která je dostupná zdarma.
+		Z důvodu rozložení zátěže a většího zabezpečení bude systém rozdělen na dva počítače - databázový server, starající se o
+		úschovu dat, který nebude připojený k internetu, a aplikační server, který bude poskytovat rozhraní k systému přes internet a bude také obsahovat
+		samotnou aplikační logiku systému. K aplikačnímu serveru se budou klienti připojovat přes internet buď z webového prohlížeče, nebo z mobilního zařízení
+		se systémem Android. Tento server bude komunikovat s databázovým serverem po místní síti. Veškerá komunikace se systémem bude probíhat po internetu, takže
+		aplikační server bude muset mít dostatečnou kapacitu připojení k internetu. K systému bude připojených naráz maximálně 50-100 uživatelů, velikost jedné
+		načtené stránky bude cca. 500 KiB. Při tomto počtu uživatelů můžeme počítat zhruba s dvěmi načteními stránky za vteřinu, kapacita internetové linky
+		serverů by měla tedy být alespoň 10 Mbit/s.
+		\begin{enumerate}
+			\item Aplikační server
+				\begin{description}
+					\item[Popis:] \hfill \\Tento server bude obsahovat jeho aplikační logiku systému skrytou za webovou službou, ke které budou moci klienti přistupovat přes
+						internet z mobilní aplikace. Dále bude obsahovat webový server, ke kterému budou uživatelé přistupovat pomocí prohlížeče.
+						Jelikož systém bude běžet pod prostředím .NET, operační systém tohoto serveru bude Microsoft Windows Server, pro zajištění maximální kompatibility
+						a jednoduchosti vývoje. Tento server bude kombinovat webový server i aplikační logiku, bude tedy potřebovat alespoň 8 GiB RAM paměti.
+					\item[Operační systém:] Microsoft Windows Server 2012
+					\item[Software:] .NET framework ve verzi 4.5
+					\item[Hardware:] Intel i3-3250 (3.5 GHz), 8 GiB RAM, 250 GiB pevný disk
+				\end{description}
+			\item Databázový server
+			\begin{description}
+				\item[Popis:] \hfill \\Tento server bude obsahovat databázi informačního systému, ke které bude aplikační server přistupovat přes místní síť.
+						Tento server  bude mít dva pevné disky zapojené v módu RAID 1 (zrcadlení) pro možnost obnovení
+						dat při potenciální závadě disku.
+				\item[Operační systém:] Microsoft Windows Server 2012
+				\item[Software:] .NET framework ve verzi 4.5, Microsoft SQL Server Express
+				\item[Hardware:] Intel i3-3250 (3.5 GHz), 4 GiB RAM, 2x 250 GiB pevný disk
+			\end{description}
+		\item Klient (prohlížeč)
+			\begin{description}
+				\item[Popis:] \hfill \\Uživatelé budou moci přistupovat k systému pomocí standardního webového prohlížeče.
+				\item[Operační systém:] Libovolný
+				\item[Software:] Nové verze nejvíce používaných prohlížečů (Opera, Google Chrome, Mozilla Firefox, Microsoft Internet Explorer aj.)
+			\end{description}
+		\item Klient (mobilní zařízení)
+			\begin{description}
+				\item[Popis:] \hfill \\Uživatelé budou moci přistupovat k systému pomocí nativní aplikace pro systém Android.
+				\item[Operační systém:] Android OS 2.3+
+			\end{description}
+		\end{enumerate}
+	\subsection{Odhad objemu dat}
+		Tato tabulka znázorňuje odhad velikosti dat uložených v systému po jednom roce aktivního používání.
+		\\\\
+		\begin{tabular}{| c | c | c | c |}
+			\hline
+			Entita & Velikost [B] & Počet & Celková velikost [KiB] \\ \hline
+			Uživatel & 100 & 800 & 80 \\ \hline
+			Třída & 80 & 20 & 1,6 \\ \hline
+			Suplování & 20 & 200 & 4 \\ \hline
+			Rozvrh & 30 & 500 & 15 \\ \hline
+			Absence & 30 & 500 & 15 \\ \hline
+			Předmět & 30 & 50 & 1,5 \\ \hline
+			Známka & 20 & 50000 & 1000 \\
+			\hline
+		\end{tabular}
 \end{document}
