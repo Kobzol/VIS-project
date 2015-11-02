@@ -15,7 +15,7 @@
 \date{2015} %datum
 
 \begin{document}
-    \maketitle
+  \maketitle
 
 	\section{Vize}
 	Tento dokument popisuje informační systém pro střední školy, který bude sloužit k evidenci informací o studiu.
@@ -38,8 +38,23 @@
 	aktuálních informací o studiu, aplikace bude dostupná neustále.
 	
 	\section{Funkční specifikace}
-	\subsection{Use case diagram}
-		\includegraphics[width=\textwidth]{vis_use_case_diagram}
+	\subsection{Use case model}
+		\begin{figure}[h!]
+			\centering
+					\includegraphics[width=\textwidth]{vis_use_case_diagram}
+			\caption{Use case diagram (0. úroveň)}
+		\end{figure}
+		\begin{figure}[h!]
+			\centering
+					\includegraphics[width=\textwidth]{vis_use_case_diagram_7}
+			\caption{UC 7 (1. úroveň)}
+		\end{figure}
+		\begin{figure}[h!]
+			\centering
+					\includegraphics[width=\textwidth]{vis_use_case_diagram_12}
+			\caption{UC 12 (1. úroveň)}
+		\end{figure}
+		
 	\subsection{Případy použití}
 	\subsubsection*{UC0: Přihlásit se do systému}
 	\begin{description}
@@ -141,8 +156,10 @@
 					\item \begin{enumerate}[label*=\arabic*.,leftmargin=8pt]
 						\item
 							\begin{enumerate}[label=\alph*.]
-								\item Žádný jiný učitel v danou dobu není dostupný
-								\item Systém nastaví, že daná hodina odpadne a přejde k bodu 6
+								\item Žádný jiný učitel v danou dobu není dostupný nebo učitel zvolí, že chce nechat hodinu odpadnout
+								\item Systém nastaví, že daná hodina odpadne
+								\item Systém odešle e-mail studentům dané hodiny, že tato hodina odpadá
+								\item Scénář užití končí
 							\end{enumerate}
 					\end{enumerate}		
 				\end{enumerate}
@@ -155,11 +172,11 @@
 	\subsection{Konceptuální model domény}
 			\includegraphics[width=\textwidth]{vis_conceptual_domain_model}
 	\subsection{Technologie}
-		Systém bude vytvořen pomocí technologie .NET v jazyce C\#. Jako databáze bude použit Microsoft SQL Server, jelikož má dobrou
+		Systém bude vytvořen v jazyce C\# a frameworku .NET. Tato technologie byla vybrána, protože se jedná o moderní technologii, která je aktivně vyvíjena a podporována firmou Microsoft, obsahuje velkou spoustu zdarma dostupných knihoven, které značne urychlují vývoj programů, a aplikace je v ní možné vyvíjet pomocí vývojových prostředí dostupných zdarma. Jako databáze bude použit Microsoft SQL Server, jelikož má dobrou
 		kompatibilitu s platformou .NET. Systém nebude muset ukládat velké objemy dat, postačí tedy verze SQL Server Express, která je dostupná zdarma.
 		Z důvodu rozložení zátěže a většího zabezpečení bude systém rozdělen na dva počítače - databázový server, starající se o
 		úschovu dat, který nebude připojený k internetu, a aplikační server, který bude poskytovat rozhraní k systému přes internet a bude také obsahovat
-		samotnou aplikační logiku systému. K aplikačnímu serveru se budou klienti připojovat přes internet buď z webového prohlížeče, nebo z mobilního zařízení
+		samotnou aplikační logiku systému. K aplikačnímu serveru se budou klienti připojovat přes internet buď z webového prohlížeče nebo z mobilního zařízení
 		se systémem Android. Tento server bude komunikovat s databázovým serverem po místní síti. Veškerá komunikace se systémem bude probíhat po internetu, takže
 		aplikační server bude muset mít dostatečnou kapacitu připojení k internetu. K systému bude připojených naráz maximálně 50-100 uživatelů, velikost jedné
 		načtené stránky bude cca. 500 KiB. Při tomto počtu uživatelů můžeme počítat zhruba s dvěmi načteními stránky za vteřinu, kapacita internetové linky
@@ -167,22 +184,23 @@
 		\begin{enumerate}
 			\item Aplikační server
 				\begin{description}
-					\item[Popis:] \hfill \\Tento server bude obsahovat jeho aplikační logiku systému skrytou za webovou službou, ke které budou moci klienti přistupovat přes
+					\item[Popis:] \hfill \\Tento server bude obsahovat aplikační logiku systému skrytou za webovou službou, ke které budou moci klienti přistupovat přes
 						internet z mobilní aplikace. Dále bude obsahovat webový server, ke kterému budou uživatelé přistupovat pomocí prohlížeče.
 						Jelikož systém bude běžet pod prostředím .NET, operační systém tohoto serveru bude Microsoft Windows Server, pro zajištění maximální kompatibility
 						a jednoduchosti vývoje. Tento server bude kombinovat webový server i aplikační logiku, bude tedy potřebovat alespoň 8 GiB RAM paměti.
+						Protože server bude běžet neustále, bude ideální pro něj použít procesor Intel Xeon, který je navržen pro neustálý běh a nízkou energetickou spotřebu.
+						Na tomto serveru se nebudou uchovávat data systému, postačí pro něj tedy základní pevný disk o kapacitě 250 GiB.
 					\item[Operační systém:] Microsoft Windows Server 2012
 					\item[Software:] .NET framework ve verzi 4.5
-					\item[Hardware:] Intel i3-3250 (3.5 GHz), 8 GiB RAM, 250 GiB pevný disk
+					\item[Hardware:] Intel Xeon E3-1220 (3.1 GHz), 8 GiB RAM, WD Blue HDD 250 GiB
 				\end{description}
 			\item Databázový server
 			\begin{description}
 				\item[Popis:] \hfill \\Tento server bude obsahovat databázi informačního systému, ke které bude aplikační server přistupovat přes místní síť.
-						Tento server  bude mít dva pevné disky zapojené v módu RAID 1 (zrcadlení) pro možnost obnovení
-						dat při potenciální závadě disku.
+						Jelikož dat v databázi nebude hodně (viz odhad dat níže), postačí serveru 4 GiB operační paměti. Do operační paměti by se měla vlézt celá databáze, takže nebude potřeba použít SSD disky, které jsou sice rychlejší, ale dražší. Tento server tedy bude mít dva pevné disky, zapojené v módu RAID 1 (zrcadlení) pro možnost obnovení dat při potenciální závadě disku.  Stejně jako aplikační server bude běžet neustále, použije se pro něj tedy procesor Intel Xeon.
 				\item[Operační systém:] Microsoft Windows Server 2012
 				\item[Software:] .NET framework ve verzi 4.5, Microsoft SQL Server Express
-				\item[Hardware:] Intel i3-3250 (3.5 GHz), 4 GiB RAM, 2x 250 GiB pevný disk
+				\item[Hardware:] Intel Xeon E3-1220 (3.1 GHz), 4 GiB RAM, 2x WD RE Raid Edition HDD 250 GiB
 			\end{description}
 		\item Klient (prohlížeč)
 			\begin{description}
