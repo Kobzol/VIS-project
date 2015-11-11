@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DomainLayer;
 
 namespace DataLayer.DataMapper
 {
@@ -10,7 +11,7 @@ namespace DataLayer.DataMapper
     {
         private Dictionary<Type, object> mappers = new Dictionary<Type, object>();
 
-        public void RegisterMapper<T>(IMapper<T> mapper)
+        public void RegisterMapper<T>(IMapper<T> mapper) where T : IIdentifiable
         {
             if (mapper == null)
             {
@@ -26,7 +27,7 @@ namespace DataLayer.DataMapper
 
             this.mappers[typeof(T)] = mapper;
         }
-        public IMapper<T> GetMapper<T>()
+        public IMapper<T> GetMapper<T>() where T : IIdentifiable
         {
             Type key = typeof(T);
 

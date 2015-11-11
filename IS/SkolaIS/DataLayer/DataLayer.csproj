@@ -42,6 +42,7 @@
     <Compile Include="Database\DatabaseConnection.cs" />
     <Compile Include="Database\DatabaseException.cs" />
     <Compile Include="Database\DatabaseHelper.cs" />
+    <Compile Include="DataMapper\IdentityMap.cs" />
     <Compile Include="DataMapper\IMapper.cs" />
     <Compile Include="DataMapper\IPersonMapper.cs" />
     <Compile Include="DataMapper\MapperRegistry.cs" />

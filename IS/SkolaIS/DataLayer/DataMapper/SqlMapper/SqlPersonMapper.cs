@@ -29,6 +29,11 @@ namespace DataLayer.DataMapper.SqlMapper
         {
             long id = reader.GetColumnValue<long>(this.ColumnId);
 
+            if (this.HasStoredObject(id))
+            {
+                return this.GetStoredObject(id);
+            }
+
             return new Person(id);
         }
     }
