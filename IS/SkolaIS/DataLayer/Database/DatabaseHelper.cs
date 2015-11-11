@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Database
 {
-    static class DatabaseHelper
+    public static class DatabaseHelper
     {
         public static T GetColumnValue<T>(this SqlDataReader reader, string name)
         {

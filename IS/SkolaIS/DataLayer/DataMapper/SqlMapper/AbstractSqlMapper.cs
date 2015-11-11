@@ -8,7 +8,7 @@ using DataLayer.Database;
 
 namespace DataLayer.DataMapper.SqlMapper
 {
-    abstract class AbstractSqlMapper<T> : IMapper<T>
+    public abstract class AbstractSqlMapper<T> : IMapper<T>
     {
         public DatabaseConnection Database { get; private set; }
 

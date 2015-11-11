@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Database
 {
-    class DatabaseException : ApplicationException
+    public class DatabaseException : ApplicationException
     {
         public DatabaseException(string message) : base(message)
         {

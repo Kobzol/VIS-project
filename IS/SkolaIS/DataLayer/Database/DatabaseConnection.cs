@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Database
 {
-    class DatabaseConnection
+    public class DatabaseConnection
     {
         private readonly string server;
         private readonly string user;

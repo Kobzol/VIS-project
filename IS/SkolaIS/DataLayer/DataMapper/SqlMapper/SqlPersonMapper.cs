@@ -9,7 +9,7 @@ using DomainLayer;
 
 namespace DataLayer.DataMapper.SqlMapper
 {
-    class SqlPersonMapper : AbstractSqlMapper<Person>, IPersonMapper
+    public class SqlPersonMapper : AbstractSqlMapper<Person>, IPersonMapper
     {
         protected override string TableName
         {

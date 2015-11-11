@@ -44,6 +44,7 @@
     <Compile Include="Database\DatabaseHelper.cs" />
     <Compile Include="DataMapper\IMapper.cs" />
     <Compile Include="DataMapper\IPersonMapper.cs" />
+    <Compile Include="DataMapper\MapperRegistry.cs" />
     <Compile Include="DataMapper\SqlMapper\AbstractSqlMapper.cs" />
     <Compile Include="DataMapper\SqlMapper\SqlPersonMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

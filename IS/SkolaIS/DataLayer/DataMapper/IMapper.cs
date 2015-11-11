@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainLayer;
 
 namespace DataLayer.DataMapper
 {
-    interface IPersonMapper : IMapper<Person>
+    public interface IMapper<T>
     {
-
+        T Find(long id);
     }
 }
