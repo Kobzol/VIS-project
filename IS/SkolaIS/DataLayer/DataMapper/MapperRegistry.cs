@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer.Helper;
 using DomainLayer;
 
 namespace DataLayer.DataMapper
@@ -22,7 +23,7 @@ namespace DataLayer.DataMapper
 
             if (this.mappers.ContainsKey(key))
             {
-                throw new ArgumentException(String.Format("Type {0} already has a mapper registered.", key.ToString()));
+                throw new ArgumentException("Type {0} already has a mapper registered.".FormatWith(key.ToString()));
             }
 
             this.mappers[typeof(T)] = mapper;
@@ -33,7 +34,7 @@ namespace DataLayer.DataMapper
 
             if (!this.mappers.ContainsKey(key))
             {
-                throw new ArgumentException(String.Format("Type {0} has no mapper registered.", key.ToString()));
+                throw new ArgumentException("Type {0} has no mapper registered.".FormatWith(key.ToString()));
             }
 
             return (IMapper<T>) this.mappers[typeof(T)];

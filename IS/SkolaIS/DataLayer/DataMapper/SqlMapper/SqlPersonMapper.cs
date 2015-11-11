@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Database;
+using DataLayer.Helper;
 using DomainLayer;
 
 namespace DataLayer.DataMapper.SqlMapper
@@ -17,7 +18,7 @@ namespace DataLayer.DataMapper.SqlMapper
         }
         protected override string FindByIdQuery
         {
-            get { return String.Format("SELECT * FROM {0} WHERE {1} = @id", this.TableName, this.ColumnId); }
+            get { return "SELECT * FROM {0} WHERE {1} = @id".FormatWith(this.TableName, this.ColumnId); }
         }
 
         public SqlPersonMapper(DatabaseConnection connection) : base(connection)

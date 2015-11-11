@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer.Helper;
 
 namespace DataLayer.Database
 {
@@ -21,7 +22,7 @@ namespace DataLayer.Database
         }
         public DatabaseConnection(string server, string user, string password)
         {
-            this.connectionString = String.Format("Data Source={0};Persist Security Info=True;User ID={1};Password={2}", server, user, password);
+            this.connectionString = "Data Source={0};Persist Security Info=True;User ID={1};Password={2}".FormatWith(server, user, password);
         }
 
         public void Connect()

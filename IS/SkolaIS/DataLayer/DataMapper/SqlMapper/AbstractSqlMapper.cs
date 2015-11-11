@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Database;
+using DataLayer.Helper;
 using DomainLayer;
 
 namespace DataLayer.DataMapper.SqlMapper
@@ -44,7 +45,7 @@ namespace DataLayer.DataMapper.SqlMapper
 
             if (!reader.HasRows)
             {
-                throw new DatabaseException(String.Format("Object with id {0} was not found", id));
+                throw new DatabaseException("Object with id {0} was not found".FormatWith(id));
             }
             
             reader.Read();

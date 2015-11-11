@@ -48,6 +48,7 @@
     <Compile Include="DataMapper\MapperRegistry.cs" />
     <Compile Include="DataMapper\SqlMapper\AbstractSqlMapper.cs" />
     <Compile Include="DataMapper\SqlMapper\SqlPersonMapper.cs" />
+    <Compile Include="Helper\StringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
