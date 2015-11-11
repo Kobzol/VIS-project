@@ -22,7 +22,7 @@ namespace DataLayer.DataMapper
 
             if (this.mappers.ContainsKey(key))
             {
-                throw new ArgumentException("Type " + key.ToString() + " already has a mapper registered.");
+                throw new ArgumentException(String.Format("Type {0} already has a mapper registered.", key.ToString()));
             }
 
             this.mappers[typeof(T)] = mapper;
@@ -33,7 +33,7 @@ namespace DataLayer.DataMapper
 
             if (!this.mappers.ContainsKey(key))
             {
-                throw new ArgumentException("Type " + key.ToString() + " has no mapper registered.");
+                throw new ArgumentException(String.Format("Type {0} has no mapper registered.", key.ToString()));
             }
 
             return (IMapper<T>) this.mappers[typeof(T)];

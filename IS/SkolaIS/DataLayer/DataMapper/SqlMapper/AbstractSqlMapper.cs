@@ -40,7 +40,16 @@ namespace DataLayer.DataMapper.SqlMapper
             SqlCommand command = this.Database.GetCommand(this.FindByIdQuery);
             command.Parameters.AddWithValue(this.ColumnId, id);
 
-            return this.LoadObject(command.ExecuteReader());
+            SqlDataReader reader = command.ExecuteReader();
+
+            if (!reader.HasRows)
+            {
+                throw new DatabaseException(String.Format("Object with id {0} was not found", id));
+            }
+            
+            reader.Read();
+
+            return this.LoadObject(reader);
         }
 
         protected virtual bool HasStoredObject(long id)

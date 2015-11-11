@@ -9,26 +9,26 @@ namespace DataLayer.Database
 {
     public class DatabaseConnection
     {
-        private readonly string server;
-        private readonly string user;
-        private readonly string password;
+        private readonly string connectionString;
 
         public SqlConnection Connection { get; private set; }
 
         private SqlTransaction activeTransaction;
 
+        public DatabaseConnection(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
         public DatabaseConnection(string server, string user, string password)
         {
-            this.server = server;
-            this.user = user;
-            this.password = password;
+            this.connectionString = String.Format("Data Source={0};Persist Security Info=True;User ID={1};Password={2}", server, user, password);
         }
 
         public void Connect()
         {
             this.Close();
 
-            this.Connection = new SqlConnection(this.GenerateConnectionString());
+            this.Connection = new SqlConnection(this.connectionString);
             this.Connection.Open();
         }
         public void Close()
@@ -107,10 +107,6 @@ namespace DataLayer.Database
         private bool IsTransactionActive()
         {
             return this.activeTransaction != null;
-        }
-        private string GenerateConnectionString()
-        {
-            return String.Format("Data Source={0};Persist Security Info=True;User ID={1};Password={2}", this.server, this.user, this.password);
         }
     }
 }

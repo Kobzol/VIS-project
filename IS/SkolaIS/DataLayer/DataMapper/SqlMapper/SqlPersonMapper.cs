@@ -17,7 +17,7 @@ namespace DataLayer.DataMapper.SqlMapper
         }
         protected override string FindByIdQuery
         {
-            get { return String.Format("SELECT * FROM {0}", this.TableName); }
+            get { return String.Format("SELECT * FROM {0} WHERE {1} = @id", this.TableName, this.ColumnId); }
         }
 
         public SqlPersonMapper(DatabaseConnection connection) : base(connection)

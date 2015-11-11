@@ -11,6 +11,11 @@ namespace DataLayer.Database
     {
         public static T GetColumnValue<T>(this SqlDataReader reader, string name)
         {
+            if (!reader.HasRows)
+            {
+                return default(T);
+            }
+
             int index = reader.GetOrdinal(name);
 
             if (reader.IsDBNull(index))
