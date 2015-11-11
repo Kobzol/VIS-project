@@ -91,6 +91,14 @@ namespace DataLayer.Database
             return Int32.Parse(command.ExecuteScalar().ToString());
         }
 
+        public void Dispose()
+        {
+            if (this.IsConnected())
+            {
+                this.Close();
+            }
+        }
+
         private void ClearTransaction()
         {
             this.activeTransaction.Dispose();
@@ -103,14 +111,6 @@ namespace DataLayer.Database
         private string GenerateConnectionString()
         {
             return String.Format("Data Source={0};Persist Security Info=True;User ID={1};Password={2}", this.server, this.user, this.password);
-        }
-
-        public void Dispose()
-        {
-            if (this.IsConnected())
-            {
-                this.Close();
-            }
         }
     }
 }
