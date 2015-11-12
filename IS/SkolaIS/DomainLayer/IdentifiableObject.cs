@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer
 {
+    [Serializable]
     public class IdentifiableObject : IIdentifiable
     {
         public long Id { get; private set; }
