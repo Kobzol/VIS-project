@@ -7,6 +7,7 @@
 \usepackage{lmodern} % Type1-font for non-english texts and characters
 \usepackage{enumitem} % enumerations
 \usepackage{graphicx} % images
+\usepackage{float}
 
 \graphicspath{ {images/} }
 
@@ -99,7 +100,11 @@
 				\end{enumerate}
 	\end{description}
 	\subsubsection*{Aktivitní diagram}
-	\includegraphics[width=\textwidth]{vis_uc0_activity}
+		\begin{figure}[h!]
+			\centering
+					\includegraphics[width=\textwidth]{vis_uc0_activity}
+			\caption{Aktivitní diagram pro UC0}
+		\end{figure}
 	\vspace{5mm}
 	
 	\subsubsection*{UC2: Přidat známky nanečisto}
@@ -131,7 +136,11 @@
 				\end{enumerate}
 	\end{description}
 	\subsubsection*{Aktivitní diagram}
-	\includegraphics[width=\textwidth]{vis_uc2_activity}
+		\begin{figure}[H]
+			\centering
+					\includegraphics[width=\textwidth]{vis_uc2_activity}
+			\caption{Aktivitní diagram pro UC2}
+		\end{figure}
 	\vspace{5mm}
 	
 	\subsubsection*{UC9: Přidat suplování}
@@ -165,12 +174,21 @@
 				\end{enumerate}
 	\end{description}
 	\subsubsection*{Aktivitní diagram}
-	\includegraphics[width=\textwidth]{vis_uc9_activity}
+		\begin{figure}[H]
+			\centering
+					\includegraphics[width=\textwidth]{vis_uc9_activity}
+			\caption{Aktivitní diagram pro UC9}
+		\end{figure}
 	\vspace{5mm}
 	
 	\section{Technická specifikace}
 	\subsection{Konceptuální model domény}
-			\includegraphics[width=\textwidth]{vis_conceptual_domain_model}
+		\begin{figure}[H]
+			\centering
+					\includegraphics[width=\textwidth]{vis_conceptual_domain_model}
+			\caption{Konceptuální model domény}
+		\end{figure}
+			
 	\subsection{Technologie}
 		Systém bude vytvořen v jazyce C\# a frameworku .NET. Tato technologie byla vybrána, protože se jedná o moderní technologii, která je aktivně vyvíjena a podporována firmou Microsoft, obsahuje velkou spoustu zdarma dostupných knihoven, které značne urychlují vývoj programů, a aplikace je v ní možné vyvíjet pomocí vývojových prostředí dostupných zdarma. Jako databáze bude použit Microsoft SQL Server, jelikož má dobrou
 		kompatibilitu s platformou .NET. Systém nebude muset ukládat velké objemy dat, postačí tedy verze SQL Server Express, která je dostupná zdarma.
@@ -229,4 +247,37 @@
 			Známka & 20 & 50000 & 1000 \\
 			\hline
 		\end{tabular}
+		
+		\section{Skica uživatelského rozhraní}
+			\begin{figure}[H]
+				\centering
+					\includegraphics[width=\textwidth]{vis_wireframe_student}
+				\caption{Student: rozvrh hodin a kalendář testů}
+			\end{figure}
+			\begin{figure}[H]
+				\centering
+						\includegraphics[width=\textwidth]{vis_wireframe_ucitel}
+				\caption{Učitel: zadávání známek a vytváření testů}
+			\end{figure}
+		\section{Návrh doménového modelu}
+			\subsection{Třídní diagram doménové vrstvy}
+				
+			\subsection{Třídní diagram datové vrstvy}
+				
+			\subection{Sekvenční diagramy}
+		\section{Architektura systému}
+			\subsection{Komponenty systému}
+			
+			\subsection{Rozložení fyzických a logických vrstev}
+				Uživatelé systému k němu budou přistupovat buď z webového prohlížeče anebo z mobilní aplikace.
+				Na aplikačním serveru bude běžet webový server pro obsluhu prohlížečů. Ten bude využívat servisní vrstvy
+				implementované pomocí technologie WCF (Windows Communication Foundation). Tato služba bude poskytovat externí rozhraní
+				pro doménový model a zároveň bude možné se k ní rovnou připojit z mobilní aplikace. Jelikož tuto službu bude využívat i webové rozhraní, zabrání
+				se duplicitě kódu při přístupu k doménové vrstvě.
+				\begin{figure}[H]
+					\centering
+							\includegraphics[width=\textwidth]{vis_deployment_diagram}
+					\caption{Diagram nasazení informačního systému}
+				\end{figure}	
+			
 \end{document}

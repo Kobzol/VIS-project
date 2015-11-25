@@ -39,6 +39,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -81,7 +83,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Properties\DataSources\DomainLayer.Person.datasource" />
+    <None Include="Service References\Service\SchoolService.disco" />
+    <None Include="Service References\Service\configuration91.svcinfo" />
+    <None Include="Service References\Service\configuration.svcinfo" />
+    <None Include="Service References\Service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Web.config" />
+    <None Include="Service References\Service\SchoolService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Service\SchoolService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -89,10 +105,19 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\Service\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <None Include="Service References\Service\SchoolService.wsdl" />
+    <None Include="Service References\Service\SchoolService.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -104,6 +129,18 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainLayer\DomainLayer.csproj">
+      <Project>{31794113-81a2-4273-81c9-257f37c1002c}</Project>
+      <Name>DomainLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\Service\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
