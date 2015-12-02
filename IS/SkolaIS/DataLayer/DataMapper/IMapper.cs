@@ -10,5 +10,7 @@ namespace DataLayer.DataMapper
     public interface IMapper<T> where T : IIdentifiable
     {
         T Find(long id);
+        void Update(T t);
+        void Delete(T t);
     }
 }

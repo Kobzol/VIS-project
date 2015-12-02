@@ -63,7 +63,7 @@ namespace DataLayer.Database
         {
             if (this.IsTransactionActive())
             {
-                throw new DatabaseException("A transaction is already active.");
+                throw new PersistenceException("A transaction is already active.");
             }
 
             return this.activeTransaction = this.Connection.BeginTransaction(System.Data.IsolationLevel.Serializable);
@@ -87,9 +87,10 @@ namespace DataLayer.Database
 
         public int GetLastInsertedId()
         {
-            SqlCommand command = this.GetCommand("SELECT SCOPE_IDENTITY()");
+            SqlCommand command = this.GetCommand("SELECT @@IDENTITY");
+            string data = command.ExecuteScalar().ToString();
 
-            return Int32.Parse(command.ExecuteScalar().ToString());
+            return Int32.Parse(data.ToString());
         }
 
         public void Dispose()

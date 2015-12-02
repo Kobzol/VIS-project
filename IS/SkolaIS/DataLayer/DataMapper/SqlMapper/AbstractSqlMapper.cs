@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Database;
@@ -15,7 +16,10 @@ namespace DataLayer.DataMapper.SqlMapper
         public DatabaseConnection Database { get; private set; }
 
         protected abstract string TableName { get; }
-        protected abstract string FindByIdQuery { get; }
+        protected virtual string FindByIdQuery { get { return "SELECT * FROM {0} WHERE {1} = @{1}".FormatWith(this.TableName, this.ColumnId); } }
+        protected abstract string UpdateByIdQuery { get; }
+        protected virtual string DeleteByIdQuery { get { return "DELETE FROM {0} WHERE {1} = @{1}".FormatWith(this.TableName, this.ColumnId); } }
+        protected abstract string InsertQuery { get; }
         protected virtual string ColumnId
         {
             get
@@ -31,7 +35,7 @@ namespace DataLayer.DataMapper.SqlMapper
             this.Database = connection;
         }
 
-        public T Find(long id)
+        public virtual T Find(long id)
         {
             if (this.HasStoredObject(id))
             {
@@ -41,16 +45,71 @@ namespace DataLayer.DataMapper.SqlMapper
             SqlCommand command = this.Database.GetCommand(this.FindByIdQuery);
             command.Parameters.AddWithValue(this.ColumnId, id);
 
-            SqlDataReader reader = command.ExecuteReader();
+            T obj;
 
-            if (!reader.HasRows)
+            using (SqlDataReader reader = command.ExecuteReader())
             {
-                throw new DatabaseException("Object with id {0} was not found".FormatWith(id));
-            }
-            
-            reader.Read();
+                if (!reader.HasRows)
+                {
+                    throw new PersistenceException("Object with id {0} was not found".FormatWith(id));
+                }
 
-            return this.LoadObject(reader);
+                reader.Read();
+
+                obj = this.LoadObject(reader);
+            }
+
+            return obj;
+        }
+        public virtual void Update(T t)
+        {
+            if (!t.IsPersisted)
+            {
+                this.Create(t);
+            }
+            else
+            {
+                SqlCommand command = this.Database.GetCommand(this.UpdateByIdQuery);
+
+                foreach (KeyValuePair<string, object> obj in this.GetUpdateValues(t))
+                {
+                    command.Parameters.AddWithValue(obj.Key, obj.Value == null ? DBNull.Value : obj.Value);
+                }
+
+                command.Parameters.AddWithValue(this.ColumnId, t.Id);
+
+                command.ExecuteNonQuery();
+            }
+        }
+        public virtual void Delete(T t)
+        {
+            SqlCommand command = this.Database.GetCommand(this.DeleteByIdQuery);
+            command.Parameters.AddWithValue(this.ColumnId, t.Id);
+
+            command.ExecuteNonQuery();
+        }
+
+        protected abstract T LoadObject(SqlDataReader reader);
+        protected abstract Dictionary<string, object> GetUpdateValues(T t);
+        protected abstract Dictionary<string, object> GetInsertValues(T t);
+        protected virtual void Create(T t)
+        {
+            using (SqlTransaction transaction = this.Database.BeginTransaction())
+            {
+                SqlCommand command = this.Database.GetCommand(this.InsertQuery);
+
+                foreach (KeyValuePair<string, object> obj in this.GetInsertValues(t))
+                {
+                    command.Parameters.AddWithValue(obj.Key, obj.Value == null ? DBNull.Value : obj.Value);
+                }
+
+                command.ExecuteNonQuery();
+
+                this.AddId(t, this.Database.GetLastInsertedId());
+                this.identityMap.PutObject(t);
+
+                this.Database.Commit();
+            }
         }
 
         protected virtual bool HasStoredObject(long id)
@@ -61,7 +120,9 @@ namespace DataLayer.DataMapper.SqlMapper
         {
             return this.identityMap.GetObject(id);
         }
-
-        protected abstract T LoadObject(SqlDataReader reader);
+        protected void AddId(T t, long id)
+        {
+            t.Id = id;
+        }
     }
 }

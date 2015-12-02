@@ -1,0 +1,1 @@
+INSERT INTO Person(name, surname, birthDate, email, classId) VALUES('Jakub', 'Beránek', GETDATE(), 'berykubik@gmail.com', NULL);

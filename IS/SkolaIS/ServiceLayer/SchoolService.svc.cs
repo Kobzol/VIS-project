@@ -13,7 +13,7 @@ namespace ServiceLayer
     {
         public Person GetPerson()
         {
-            return new Person(1);
+            return null;
         }
     }
 }

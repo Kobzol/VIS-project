@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Database
 {
-    public class DatabaseException : ApplicationException
+    public class PersistenceException : ApplicationException
     {
-        public DatabaseException(string message) : base(message)
+        public PersistenceException(string message) : base(message)
         {
 
         }
