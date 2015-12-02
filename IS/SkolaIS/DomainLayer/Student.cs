@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainLayer
 {
-    public class Student : Person
+    public class Student : Person, IStudent
     {
         public IClass Class { get; private set; }
         public IEnumerable<ISubject> subjects { get; private set; }

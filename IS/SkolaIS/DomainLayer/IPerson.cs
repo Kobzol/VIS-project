@@ -5,10 +5,11 @@ using System.Text;
 
 namespace DomainLayer
 {
-    public interface ITest : IIdentifiable
+    public interface IPerson
     {
         string Name { get; }
-        DateTime Date { get; }
-        ISubject Subject { get; }
+        string Surname { get; }
+        DateTime BirthDate { get; }
+        string Email { get; }
     }
 }

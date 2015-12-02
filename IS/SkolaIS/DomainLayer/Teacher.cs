@@ -8,9 +8,11 @@ namespace DomainLayer
 {
     public class Teacher : Person, ITeacher
     {
-        public Teacher(string name, string surname, DateTime birthDate, string email) : base(name, surname, birthDate, email)
+        public IEnumerable<ISubject> Subjects { get; private set; }
+
+        public Teacher(string name, string surname, DateTime birthDate, string email, IEnumerable<ISubject> subjects) : base(name, surname, birthDate, email)
         {
-            
+            this.Subjects = subjects;
         }
     }
 }

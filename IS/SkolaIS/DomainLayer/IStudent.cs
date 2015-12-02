@@ -5,8 +5,9 @@ using System.Text;
 
 namespace DomainLayer
 {
-    public interface IStudent
+    public interface IStudent : IPerson, IIdentifiable
     {
-
+        IClass Class { get; }
+        IEnumerable<ISubject> subjects { get; }
     }
 }

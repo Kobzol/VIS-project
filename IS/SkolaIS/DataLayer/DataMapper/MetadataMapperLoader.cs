@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using DataLayer.Database;
 using DataLayer.Helper;
+using DomainLayer.Repository;
 
 namespace DataLayer.DataMapper
 {
     public class MetadataMapperLoader
     {
-        public void LoadMappers(string xml, DatabaseConnection connection, MapperRegistry registry)
+        public void LoadMappers(string xml, DatabaseConnection connection, Repository repository)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
@@ -30,15 +31,15 @@ namespace DataLayer.DataMapper
 
                 Type domainType = Type.GetType("{0}.{1}, {2}".FormatWith(domainPrefix, domainClassName, "DomainLayer"));
 
-                this.AddMapper(mapper, domainType, registry);
+                this.AddMapper(mapper, domainType, repository);
             }
         }
 
-        private void AddMapper(object mapper, Type domainType, MapperRegistry registry)
+        private void AddMapper(object mapper, Type domainType, Repository repository)
         {
-            MethodInfo method = typeof(MapperRegistry).GetMethod("RegisterMapper");
+            /*MethodInfo method = typeof(MapperRegistry).GetMethod("RegisterMapper");
             method = method.MakeGenericMethod(domainType);
-            method.Invoke(registry, new object[] { mapper });
+            method.Invoke(registry, new object[] { mapper });*/
         }
 
         private object ConstructMapper(string namespacePrefix, string mapperName, DatabaseConnection connection)

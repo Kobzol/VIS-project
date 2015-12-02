@@ -56,7 +56,7 @@ namespace DataLayer.DataMapper.SqlMapper
 
                 reader.Read();
 
-                obj = this.LoadObject(reader);
+                obj = this.LoadObjectFromCache(reader);
             }
 
             return obj;
@@ -89,6 +89,16 @@ namespace DataLayer.DataMapper.SqlMapper
             command.ExecuteNonQuery();
         }
 
+        protected virtual T LoadObjectFromCache(SqlDataReader reader)
+        {
+            long id = this.GetId(reader);
+
+            if (this.HasStoredObject(id))
+            {
+                return this.GetStoredObject(id);
+            }
+            else return this.LoadObject(reader);
+        }
         protected abstract T LoadObject(SqlDataReader reader);
         protected abstract Dictionary<string, object> GetUpdateValues(T t);
         protected abstract Dictionary<string, object> GetInsertValues(T t);
@@ -111,7 +121,25 @@ namespace DataLayer.DataMapper.SqlMapper
                 this.Database.Commit();
             }
         }
+        protected virtual IEnumerable<T> FindMultiple(SqlCommand command)
+        {
+            List<T> objects = new List<T>();
 
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    objects.Add(this.LoadObjectFromCache(reader));
+                }
+            }
+
+            return objects;
+        }
+
+        protected virtual long GetId(SqlDataReader reader)
+        {
+            return reader.GetColumnValue<long>(this.ColumnId);
+        }
         protected virtual bool HasStoredObject(long id)
         {
             return this.identityMap.HasObject(id);

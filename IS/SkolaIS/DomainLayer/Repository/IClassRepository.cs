@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainLayer;
 
-namespace DataLayer.DataMapper
+namespace DomainLayer.Repository
 {
-    public interface IPersonMapper : IMapper<Person>
+    public interface IClassRepository
     {
-
+        IClass Find(long id);
     }
 }

@@ -11,12 +11,14 @@ namespace DomainLayer
         public bool IsHourCanceled { get; private set; }
         public DateTime Date { get; private set; }
         public ITeachingHour Hour { get; private set; }
+        public ISchedule Schedule { get; private set; }
 
-        public Supplement(bool isHourCanceled, DateTime date, ITeachingHour hour)
+        public Supplement(bool isHourCanceled, DateTime date, ITeachingHour hour, ISchedule schedule)
         {
             this.IsHourCanceled = isHourCanceled;
             this.Date = date;
             this.Hour = hour;
+            this.Schedule = schedule;
         }
     }
 }

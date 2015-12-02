@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer
+namespace DomainLayer.Repository
 {
-    public interface ITeacher : IIdentifiable, IPerson
+    public interface IStudentRepository
     {
-        IEnumerable<ISubject> Subjects { get; }
+        IStudent Find(long id);
     }
 }

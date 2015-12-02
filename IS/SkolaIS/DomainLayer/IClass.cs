@@ -7,6 +7,9 @@ namespace DomainLayer
 {
     public interface IClass : IIdentifiable
     {
-
+        int FirstYear { get; }
+        int FinalYear { get; }
+        Room Room { get; }
+        ITeacher Teacher { get; }
     }
 }

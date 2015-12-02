@@ -5,8 +5,9 @@ using System.Text;
 
 namespace DomainLayer
 {
-    public interface ITeachingHour
+    public interface ITeachingHour : IIdentifiable
     {
-
+        int Day { get; }
+        int Order { get; }
     }
 }

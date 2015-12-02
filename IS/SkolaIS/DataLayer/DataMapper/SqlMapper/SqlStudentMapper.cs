@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using DataLayer.Database;
 using DataLayer.Helper;
 using DomainLayer;
+using DomainLayer.Repository;
 
 namespace DataLayer.DataMapper.SqlMapper
 {
-    public class SqlStudentMapper : AbstractSqlMapper<Student>
+    public class SqlStudentMapper : AbstractSqlMapper<IStudent>, IStudentRepository
     {
         protected override string TableName
         {
@@ -25,24 +26,22 @@ namespace DataLayer.DataMapper.SqlMapper
             get { return "INSERT INTO {0}(name, surname, birthDate, email, classId) VALUES(@name, @surname, @birthDate, @email, @classId)".FormatWith(this.TableName); }
         }
 
+        public IClassRepository ClassRepository { get; set; }
+        public ISubjectRepository SubjectRepository { get; set; }
+
         public SqlStudentMapper(DatabaseConnection connection) : base(connection)
         {
-
+            
         }
 
-        protected override Student LoadObject(SqlDataReader reader)
+        protected override IStudent LoadObject(SqlDataReader reader)
         {
-            long id = reader.GetColumnValue<long>(this.ColumnId);
+            long id = this.GetId(reader);
 
-            if (this.HasStoredObject(id))
-            {
-                return this.GetStoredObject(id);
-            }
+            IClass klass = this.ClassRepository.Find(reader.GetColumnValue<long>("classId"));
+            IEnumerable<ISubject> subjects = this.SubjectRepository.FindByStudentId(id);
 
-            IClass klass = null;    // TODO
-            IEnumerable<ISubject> subjects = null;
-
-            Student student = new Student(
+            IStudent student = new Student(
                 reader.GetColumnValue<string>("name"),
                 reader.GetColumnValue<string>("surname"),
                 reader.GetColumnValue<DateTime>("birthDate"),
@@ -56,7 +55,7 @@ namespace DataLayer.DataMapper.SqlMapper
             return student;
         }
 
-        protected override Dictionary<string, object> GetUpdateValues(Student t)
+        protected override Dictionary<string, object> GetUpdateValues(IStudent t)
         {
             return new Dictionary<string, object>()
             {
@@ -67,8 +66,7 @@ namespace DataLayer.DataMapper.SqlMapper
                 {"classId", t.Class == null ? null : (long?) t.Class.Id}
             };
         }
-
-        protected override Dictionary<string, object> GetInsertValues(Student t)
+        protected override Dictionary<string, object> GetInsertValues(IStudent t)
         {
             return this.GetUpdateValues(t);
         }

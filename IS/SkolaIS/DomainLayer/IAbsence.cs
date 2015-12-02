@@ -5,8 +5,12 @@ using System.Text;
 
 namespace DomainLayer
 {
-    public interface IAbsence
+    public interface IAbsence : IIdentifiable
     {
-
+        DateTime Date { get; }
+        AbsenceType Type { get; }
+        bool Excused { get; }
+        IStudent Student { get; }
+        ITeachingHour Hour { get; }
     }
 }

@@ -5,8 +5,11 @@ using System.Text;
 
 namespace DomainLayer
 {
-    public interface ISupplement
+    public interface ISupplement : IIdentifiable
     {
-
+        bool IsHourCanceled { get; }
+        DateTime Date { get; }
+        ITeachingHour Hour { get; }
+        ISchedule Schedule { get; }
     }
 }

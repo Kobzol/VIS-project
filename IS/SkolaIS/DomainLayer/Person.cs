@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DomainLayer
 {
     [Serializable]
-    public class Person : IdentifiableObject
+    public class Person : IdentifiableObject, IPerson
     {
         public string Name { get; set; }
         public string Surname { get; private set; }

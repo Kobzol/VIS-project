@@ -41,13 +41,19 @@
   <ItemGroup>
     <Compile Include="Database\DatabaseConnection.cs" />
     <Compile Include="DataMapper\PersistenceException.cs" />
-    <Compile Include="Database\DatabaseHelper.cs" />
+    <Compile Include="DataMapper\SqlMapper\SqlAbsenceMapper.cs" />
+    <Compile Include="DataMapper\SqlMapper\SqlGradeMapper.cs" />
+    <Compile Include="DataMapper\SqlMapper\SqlScheduleMapper.cs" />
+    <Compile Include="DataMapper\SqlMapper\SqlSubjectMapper.cs" />
+    <Compile Include="DataMapper\SqlMapper\SqlSupplementMapper.cs" />
+    <Compile Include="DataMapper\SqlMapper\SqlTeachingHourMapper.cs" />
+    <Compile Include="DataMapper\SqlMapper\SqlTestMapper.cs" />
+    <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="DataMapper\IdentityMap.cs" />
     <Compile Include="DataMapper\IMapper.cs" />
-    <Compile Include="DataMapper\IPersonMapper.cs" />
-    <Compile Include="DataMapper\MapperRegistry.cs" />
     <Compile Include="DataMapper\MetadataMapperLoader.cs" />
     <Compile Include="DataMapper\SqlMapper\AbstractSqlMapper.cs" />
+    <Compile Include="DataMapper\SqlMapper\SqlClassMapper.cs" />
     <Compile Include="DataMapper\SqlMapper\SqlStudentMapper.cs" />
     <Compile Include="DataMapper\SqlMapper\SqlTeacherMapper.cs" />
     <Compile Include="DataMapper\XmlMapper\AbstractXmlMapper.cs" />

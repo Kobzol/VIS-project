@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Database
+namespace DataLayer.Helper
 {
     public static class DatabaseHelper
     {

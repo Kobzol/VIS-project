@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataLayer.Database;
+using DataLayer.Helper;
 using DomainLayer;
+using DomainLayer.Repository;
 
 namespace DataLayer.DataMapper.SqlMapper
 {
-    public class SqlTeacherMapper : AbstractSqlMapper<Teacher>
+    public class SqlTeacherMapper : AbstractSqlMapper<ITeacher>, ITeacherRepository
     {
         protected override string TableName
         {
@@ -17,31 +19,52 @@ namespace DataLayer.DataMapper.SqlMapper
         }
         protected override string UpdateByIdQuery
         {
-            get { throw new NotImplementedException(); }
+            get { return "UPDATE {0} SET name=@name, surname=@surname, birthDate=@birthDate, email=@email WHERE id=@id".FormatWith(this.TableName); }
         }
         protected override string InsertQuery
         {
-            get { throw new NotImplementedException(); }
+            get { return "INSERT INTO {0}(name, surname, birthDate, email) VALUES(@name, @surname, @birthDate, @email)".FormatWith(this.TableName); }
         }
 
-        public SqlTeacherMapper(DatabaseConnection connection) : base(connection)
-        {
+        private ISubjectRepository subjectRepository;
 
+        public SqlTeacherMapper(DatabaseConnection connection, ISubjectRepository subjectRepository) : base(connection)
+        {
+            this.subjectRepository = subjectRepository;
         }
 
-        protected override Teacher LoadObject(SqlDataReader reader)
+        protected override ITeacher LoadObject(SqlDataReader reader)
         {
-            return null;
+            long id = this.GetId(reader);
+
+            IEnumerable<ISubject> subjects = this.subjectRepository.FindByTeacherId(id);
+
+            ITeacher teacher = new Teacher(
+                reader.GetColumnValue<string>("name"),
+                reader.GetColumnValue<string>("surname"),
+                reader.GetColumnValue<DateTime>("birthDate"),
+                reader.GetColumnValue<string>("email"),
+                subjects
+            );
+
+            this.AddId(teacher, id);
+
+            return teacher;
         }
 
-        protected override Dictionary<string, object> GetUpdateValues(Teacher t)
+        protected override Dictionary<string, object> GetUpdateValues(ITeacher t)
         {
-            throw new NotImplementedException();
+            return new Dictionary<string, object>()
+            {
+                {"name", t.Name},
+                {"surname", t.Surname},
+                {"birthDate", t.BirthDate},
+                {"email", t.Email}
+            };
         }
-
-        protected override Dictionary<string, object> GetInsertValues(Teacher t)
+        protected override Dictionary<string, object> GetInsertValues(ITeacher t)
         {
-            throw new NotImplementedException();
+            return this.GetUpdateValues(t);
         }
     }
 }

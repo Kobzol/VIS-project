@@ -5,8 +5,8 @@ using System.Text;
 
 namespace DomainLayer
 {
-    public interface ISchedule
+    public interface ISchedule : IIdentifiable
     {
-
+        IEnumerable<ITeachingHour> Hours { get; }
     }
 }
