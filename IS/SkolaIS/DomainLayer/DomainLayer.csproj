@@ -39,10 +39,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Absence.cs" />
+    <Compile Include="AbsenceType.cs" />
+    <Compile Include="Class.cs" />
+    <Compile Include="Grade.cs" />
+    <Compile Include="IAbsence.cs" />
+    <Compile Include="IClass.cs" />
     <Compile Include="IdentifiableObject.cs" />
+    <Compile Include="IGrade.cs" />
     <Compile Include="IIdentifiable.cs" />
+    <Compile Include="ISchedule.cs" />
+    <Compile Include="IStudent.cs" />
+    <Compile Include="ISubject.cs" />
+    <Compile Include="ISupplement.cs" />
+    <Compile Include="ITeacher.cs" />
+    <Compile Include="ITeachingHour.cs" />
+    <Compile Include="ITest.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Room.cs" />
+    <Compile Include="Schedule.cs" />
+    <Compile Include="Student.cs" />
+    <Compile Include="Subject.cs" />
+    <Compile Include="Supplement.cs" />
+    <Compile Include="Teacher.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

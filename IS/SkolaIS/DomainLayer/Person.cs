@@ -9,14 +9,17 @@ namespace DomainLayer
     [Serializable]
     public class Person : IdentifiableObject
     {
-        public Person(long id) : base(id)
-        {
+        public string Name { get; set; }
+        public string Surname { get; private set; }
+        public DateTime BirthDate { get; private set; }
+        public string Email { get; private set; }
 
-        }
-
-        public long Test()
+        public Person(string name, string surname, DateTime birthDate, string email)
         {
-            return this.Id;
+            this.Name = name;
+            this.Surname = surname;
+            this.BirthDate = birthDate;
+            this.Email = email;
         }
     }
 }

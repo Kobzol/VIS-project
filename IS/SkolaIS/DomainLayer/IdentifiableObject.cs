@@ -9,8 +9,15 @@ namespace DomainLayer
     [Serializable]
     public class IdentifiableObject : IIdentifiable
     {
-        public long Id { get; private set; }
+        private const long ID_NOT_INITIALIZED = -1;
 
+        public long Id { get; set; }
+        public bool IsPersisted { get { return this.Id != IdentifiableObject.ID_NOT_INITIALIZED; } }
+
+        public IdentifiableObject()
+        {
+            this.Id = IdentifiableObject.ID_NOT_INITIALIZED;
+        }
         public IdentifiableObject(long id)
         {
             this.Id = id;

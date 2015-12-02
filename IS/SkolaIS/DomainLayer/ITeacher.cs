@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer
 {
-    public interface IIdentifiable
+    public interface ITeacher
     {
-        long Id { get; set; }
-        bool IsPersisted { get; }
+
     }
 }
