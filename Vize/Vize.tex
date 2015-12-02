@@ -260,15 +260,88 @@
 				\caption{Učitel: zadávání známek a vytváření testů}
 			\end{figure}
 		\section{Návrh doménového modelu}
+			\subsection{Aplikace návrhových vzorů}
+				\subsubsection*{Prezentační vrstva}
+					Prezentační vrstva bude získávat data ze servisní vrstvy. Pro přístup k ní bude využívat bránu (\textbf{Gateway}), aby
+					nemusela přímo znát implementační detaily používání služby a servisní vrstva pro ni byla transparentní.
+					Data ze servisní vrstvy budou navrácena v podobě datových obálek (\textbf{Data Transfer Object}).
+					Webová aplikace bude založená na modelu MVC (\textbf{Model-View-Controller}), aby se důsledně oddělila prezentace dat a logika aplikace.
+					Controllery budou mít jednoho společného předka (\textbf{Front controller}), který se bude starat o logiku společnou pro všechny stránky na
+					webu, jako je nastavování jazyku, načítání relace nebo obsluha chyb. Dále pak bude obsahovat samostatné controllery pro každou část webu
+					(\textbf{Page controller}). Relace uživatelů bude běžet na samotném webovém serveru (\textbf{Server session state}). Pro vykreslování
+					HTML budou použity šablonované pohledy (\textbf{Template view}). Pro prezentační vrstvu na mobilních zařízeních bude použit
+					\textbf{MVC} a \textbf{Gateway}.
+			
+				\subsubsection*{Servisní vrstva}
+					Servisní vrstva bude poskytovat rozhraní k přístupu k doménové logice pro prezentační vrstvu.
+					Pro přenos objektů budou použity jednoduché datové obálky (\textbf{Data Transfer Object}), aby se zjednodušila serializace
+					objektů pro přenos po síti a aby klienti služby neměli závislost na fyzické komponentě (DLL souboru) doménové vrstvy.
+					Jednotlivé metody servisní vrstvy budou vyřizovat vždy jeden požadavek od prezentační vrstvy, bude se tedy jednat o \textbf{Transakční skript}.
+			
+				\subsubsection*{Doménová vrstva}
+					Pro modelování logiky a vztahů v doménové vrstvě bude použit \textbf{Doménový model}. Tímto se zajistí co nejvěrnější modelování reality, oddělení
+					závislostí a také snazší rozšiřitelnost systému. Každý objekt bude dědit ze společného doménového předka (\textbf{Layer supertype}),
+					který bude zajišťovat identifikaci objektů pomocí celočíselného klíče (\textbf{Identity field}) pro jejich snažší perzistenci.
+					Bude zde také rozhraní repozitáře objektů, které bude sloužit k jejich vyhledávání a bude implementované datovou vrstvou (\textbf{Separated interface}).
+				
+				\subsubsection*{Datová vrstva}
+					Pro mapování doménových objektů do perzistentního úložiště bude použit \textbf{Data mapper}. Zajistí se tak totální nezávislost
+					doménové vrstvy na použité perzistentní technologii i na datové vrstvě. Mappery budou mít společného předka (\textbf{Layer supertype})
+					zajišťujícího společnou funkcionalitu (např. připojení k DB u databázových mapperů, načítání XML souborů u XML mapperů atd.).
+					Objekty načítané z perzistentního úložiště budou cachovány v procesu aplikace (\textbf{Identity map}), což zajistí větší rychlost jejich vyhledávání
+					a také usnadní konzistenci mapování. Atributy doménových objektů, které budou moc velké pro okamžité načtení, se budou načítat až v době potřeby
+					(\textbf{Lazy load}). Aby doménové 	objekty nevěděly o tom, že jejich atributy nejsou ještě načtené, bude jejich reálný typ skryt za rozhraním.
+					Pro doménové objekty s vazbou agregace bude použito mapování cizího klíče (\textbf{Foreign key mapping}), pro některé objekty s vazbou
+					kompozice (Předmět, Rozvrh) bude použito závislostní mapování jejich částí (\textbf{Dependent mapping)}.
+					Jednoduché objekty, sloužící v podstatě jako výčtový typ (Vyučovací hodina) budou mapovány přímo do tabulek ostatních tříd (\textbf{Embedded value}).
+					Pro mapování uživatelů, kteří dědí z abstraktní třídy Osoba, bude použito mapování do jedné tabulky (\textbf{Single table inheritance}),
+					jelikož jednotlivé typy uživatelů se liší hlavně chováním a svou rolí, atributy jen minimálně. Navíc tak bude umožněno hledat v perzistentním úložišti
+					jednotně (polymorficky) osoby podle společných atributů. Mappery budou konfigurovány při spuštění servisní vrstvy z XML souboru(\textbf{Plugin},
+					\textbf{Metadata mapping}). Jejich závislosti (např. na databázi) jim budou vloženy při jejich vytvoření (\textbf{Dependency injection}).
+					Přístup k mapperům bude zajištěn pomocí registru mapperů (\textbf{Registry}), který bude obsahovat mapper pro každou třídu z doménové vrstvy.
+					K mapperu registrů bude statický přístup pro jednoduché vyhledávání objektů. Bude zároveň implementovat repozitář z doménové vrstvy, aby k objektům
+					měly snadný přístup i doménové objekty (bez toho, aby věděly, že se vyhledávané objekty načítají z perzistentního úložiště).
+		
 			\subsection{Třídní diagram doménové vrstvy}
-				
+				\begin{figure}[H]
+					\centering
+							\includegraphics[width=\textwidth]{vis_class_diagram_domain}
+					\caption{Doménová vrstva systému}
+				\end{figure}
 			\subsection{Třídní diagram datové vrstvy}
-				
-			\subection{Sekvenční diagramy}
+				\begin{figure}[H]
+					\centering
+							\includegraphics[width=\textwidth]{vis_class_diagram_data}
+					\caption{Datová vrstva systému}
+				\end{figure}
+			\subsection{Sekvenční diagramy}
+				\begin{figure}[H]
+					\centering
+							\includegraphics[width=\textwidth]{vis_sequence_diagram_uc0}
+					\caption{Sekvenční diagram k UC0}
+				\end{figure}
+				\begin{figure}[H]
+					\centering
+							\includegraphics[width=\textwidth]{vis_sequence_diagram_uc2}
+					\caption{Sekvenční diagram k UC2}
+				\end{figure}
+				\begin{figure}[H]
+					\centering
+							\includegraphics[width=\textwidth]{vis_sequence_diagram_uc9}
+					\caption{Sekvenční diagram k UC9}
+				\end{figure}
 		\section{Architektura systému}
 			\subsection{Komponenty systému}
-			
+					\begin{figure}[H]
+						\centering
+								\includegraphics[width=\textwidth]{vis_component_diagram}
+						\caption{Diagram komponent}
+					\end{figure}
 			\subsection{Rozložení fyzických a logických vrstev}
+				Systém bude rozložen do třívrstvé architektury s použitím servisní vrstvy mezi prezentační a doménovou vrstvou.
+				Prezentační vrstva bude jak u klienta (webový prohlížeč, mobilní aplikace), tak na aplikačním serveru (webová aplikace).
+				Servisní vrstva bude běžet aplikačním serveru, společně s doménovou a datovou vrstvou.
+				Databáze bude běžet odděleně na databázovém serveru.
 				Uživatelé systému k němu budou přistupovat buď z webového prohlížeče anebo z mobilní aplikace.
 				Na aplikačním serveru bude běžet webový server pro obsluhu prohlížečů. Ten bude využívat servisní vrstvy
 				implementované pomocí technologie WCF (Windows Communication Foundation). Tato služba bude poskytovat externí rozhraní
