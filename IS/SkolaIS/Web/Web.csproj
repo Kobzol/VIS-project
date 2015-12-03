@@ -131,6 +131,12 @@
     <Content Include="Style\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
+    <Content Include="Style\style.css">
+      <DependentUpon>style.less</DependentUpon>
+    </Content>
+    <Content Include="Style\style.min.css">
+      <DependentUpon>style.css</DependentUpon>
+    </Content>
     <Content Include="Web.config" />
     <None Include="Service References\Service\SchoolService1.xsd">
       <SubType>Designer</SubType>
@@ -165,6 +171,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Style\style.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

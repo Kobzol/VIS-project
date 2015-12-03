@@ -19,11 +19,11 @@ namespace DataLayer.DataMapper.SqlMapper
         }
         protected override string UpdateByIdQuery
         {
-            get { return "UPDATE {0} SET day=@day, order=@order WHERE id=@id".FormatWith(this.TableName); }
+            get { return "UPDATE {0} SET day=@day, [order]=@order WHERE id=@id".FormatWith(this.TableName); }
         }
         protected override string InsertQuery
         {
-            get { return "INSERT INTO {0}(day, order) VALUES(@day, @order)".FormatWith(this.TableName); }
+            get { return "INSERT INTO {0}(day, [order]) VALUES(@day, @order)".FormatWith(this.TableName); }
         }
 
         public SqlTeachingHourMapper(DatabaseConnection connection) : base(connection)

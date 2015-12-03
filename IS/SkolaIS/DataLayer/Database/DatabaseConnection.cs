@@ -85,12 +85,20 @@ namespace DataLayer.Database
             }
         }
 
-        public int GetLastInsertedId()
+        public long GetLastInsertedId()
         {
             SqlCommand command = this.GetCommand("SELECT @@IDENTITY");
             string data = command.ExecuteScalar().ToString();
 
-            return Int32.Parse(data.ToString());
+            return Int64.Parse(data);
+        }
+        public long GetLastInsertedId(string tableName)
+        {
+            SqlCommand command = this.GetCommand("SELECT IDENT_CURRENT(@table)");
+            command.Parameters.AddWithValue("table", tableName);
+            string data = command.ExecuteScalar().ToString();
+
+            return Int64.Parse(data);
         }
 
         public void Dispose()

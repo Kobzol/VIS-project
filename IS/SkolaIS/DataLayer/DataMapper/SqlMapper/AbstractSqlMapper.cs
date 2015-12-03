@@ -115,7 +115,7 @@ namespace DataLayer.DataMapper.SqlMapper
 
                 command.ExecuteNonQuery();
 
-                this.AddId(t, this.Database.GetLastInsertedId());
+                this.AddId(t, this.Database.GetLastInsertedId(this.TableName));
                 this.identityMap.PutObject(t);
 
                 this.Database.Commit();

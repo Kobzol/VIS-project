@@ -1,3 +1,5 @@
+USE VIS;
+
 CREATE TABLE [dbo].[Class]
 (
 	[id] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
