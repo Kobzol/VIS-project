@@ -69,7 +69,7 @@
     <Compile Include="Repository\ITeacherRepository.cs" />
     <Compile Include="Repository\ITeachingHourRepository.cs" />
     <Compile Include="Repository\ITestRepository.cs" />
-    <Compile Include="Repository\RepositoryContainer.cs" />
+    <Compile Include="Repository\RepoContainer.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Student.cs" />

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Repository
 {
-    public class RepositoryContainer
+    public class RepoContainer
     {
-        public static RepositoryContainer Instance { get { return RepositoryContainer.instance; } }
-        private static RepositoryContainer instance = new RepositoryContainer();
+        public static RepoContainer Instance { get { return RepoContainer.instance; } }
+        private static RepoContainer instance = new RepoContainer();
 
         public IStudentRepository Student { get; set; }
         public ITeacherRepository Teacher { get; set; }

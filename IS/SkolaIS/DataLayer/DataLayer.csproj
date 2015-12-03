@@ -48,6 +48,7 @@
     <Compile Include="DataMapper\SqlMapper\SqlSupplementMapper.cs" />
     <Compile Include="DataMapper\SqlMapper\SqlTeachingHourMapper.cs" />
     <Compile Include="DataMapper\SqlMapper\SqlTestMapper.cs" />
+    <Compile Include="DataMapper\XmlMapper\XmlStudentMapper.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="DataMapper\IdentityMap.cs" />
     <Compile Include="DataMapper\MetadataMapperLoader.cs" />

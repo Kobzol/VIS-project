@@ -67,8 +67,15 @@ namespace DataLayer.DataMapper.XmlMapper
 
         private XmlDocument LoadMapperFile()
         {
+            string targetPath = Path.Combine(this.Directory, this.FileName);
+
+            if (!File.Exists(targetPath))
+            {
+                File.Create(targetPath).Close();
+            }
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(Path.Combine(this.Directory, this.FileName));
+            doc.Load(targetPath);
 
             return doc;
         }
