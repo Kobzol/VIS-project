@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Repository
 {
-    public interface IAbsenceRepository
+    public interface IAbsenceRepository : IRepository<IAbsence>
     {
-        IAbsence Find(long id);
         IEnumerable<IAbsence> FindBySubjectId(long subjectId);
     }
 }

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Repository
 {
-    public interface IGradeRepository
+    public interface IGradeRepository : IRepository<IGrade>
     {
-        IGrade Find(long id);
         IEnumerable<IGrade> FindByTestId(long testId);
     }
 }

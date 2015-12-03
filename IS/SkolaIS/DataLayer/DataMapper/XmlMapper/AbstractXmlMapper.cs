@@ -11,7 +11,7 @@ using DomainLayer;
 
 namespace DataLayer.DataMapper.XmlMapper
 {
-    public abstract class AbstractXmlMapper<T> : IMapper<T> where T : IIdentifiable
+    public abstract class AbstractXmlMapper<T> where T : IIdentifiable
     {
         public string Directory { get; private set; }
         protected abstract string FileName { get; }

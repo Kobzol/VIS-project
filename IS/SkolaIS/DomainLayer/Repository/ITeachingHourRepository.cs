@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Repository
 {
-    public interface ITeachingHourRepository
+    public interface ITeachingHourRepository : IRepository<ITeachingHour>
     {
-        ITeachingHour Find(long id);
         IEnumerable<ITeachingHour> FindByScheduleId(long scheduleId);
     }
 }

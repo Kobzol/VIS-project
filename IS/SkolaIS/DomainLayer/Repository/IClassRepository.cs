@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Repository
 {
-    public interface IClassRepository
+    public interface IClassRepository : IRepository<IClass>
     {
-        IClass Find(long id);
+        
     }
 }

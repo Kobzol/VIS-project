@@ -61,6 +61,7 @@
     <Compile Include="Repository\IAbsenceRepository.cs" />
     <Compile Include="Repository\IClassRepository.cs" />
     <Compile Include="Repository\IGradeRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IScheduleRepository.cs" />
     <Compile Include="Repository\IStudentRepository.cs" />
     <Compile Include="Repository\ISubjectRepository.cs" />
@@ -68,7 +69,7 @@
     <Compile Include="Repository\ITeacherRepository.cs" />
     <Compile Include="Repository\ITeachingHourRepository.cs" />
     <Compile Include="Repository\ITestRepository.cs" />
-    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\RepositoryContainer.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="Schedule.cs" />
     <Compile Include="Student.cs" />

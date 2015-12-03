@@ -13,7 +13,7 @@ namespace DataLayer.DataMapper
 {
     public class MetadataMapperLoader
     {
-        public void LoadMappers(string xml, DatabaseConnection connection, Repository repository)
+        public void LoadMappers(string xml, DatabaseConnection connection, RepositoryContainer repository)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(xml);
@@ -35,7 +35,7 @@ namespace DataLayer.DataMapper
             }
         }
 
-        private void AddMapper(object mapper, Type domainType, Repository repository)
+        private void AddMapper(object mapper, Type domainType, RepositoryContainer repository)
         {
             /*MethodInfo method = typeof(MapperRegistry).GetMethod("RegisterMapper");
             method = method.MakeGenericMethod(domainType);

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Repository
 {
-    public interface ISupplementRepository
+    public interface ISupplementRepository : IRepository<ISupplement>
     {
-        ISupplement Find(long id);
+        
     }
 }

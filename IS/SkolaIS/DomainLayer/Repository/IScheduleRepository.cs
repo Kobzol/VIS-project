@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Repository
 {
-    public interface IScheduleRepository
+    public interface IScheduleRepository : IRepository<ISchedule>
     {
-        ISchedule Find(long id);
+       
     }
 }

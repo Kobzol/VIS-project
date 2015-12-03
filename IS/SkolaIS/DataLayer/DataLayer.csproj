@@ -50,7 +50,6 @@
     <Compile Include="DataMapper\SqlMapper\SqlTestMapper.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="DataMapper\IdentityMap.cs" />
-    <Compile Include="DataMapper\IMapper.cs" />
     <Compile Include="DataMapper\MetadataMapperLoader.cs" />
     <Compile Include="DataMapper\SqlMapper\AbstractSqlMapper.cs" />
     <Compile Include="DataMapper\SqlMapper\SqlClassMapper.cs" />

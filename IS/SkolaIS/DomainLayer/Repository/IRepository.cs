@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DomainLayer;
 
-namespace DataLayer.DataMapper
+namespace DomainLayer.Repository
 {
-    public interface IMapper<T> where T : IIdentifiable
+    public interface IRepository<T> where T : IIdentifiable
     {
         T Find(long id);
         void Update(T t);

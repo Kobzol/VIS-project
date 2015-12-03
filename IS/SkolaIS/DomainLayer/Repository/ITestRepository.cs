@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DomainLayer.Repository
 {
-    public interface ITestRepository
+    public interface ITestRepository : IRepository<ITest>
     {
-        ITest Find(long id);
         IEnumerable<ITest> FindBySubjectId(long subjectId);
     }
 }

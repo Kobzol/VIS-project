@@ -11,7 +11,7 @@ using DomainLayer;
 
 namespace DataLayer.DataMapper.SqlMapper
 {
-    public abstract class AbstractSqlMapper<T> : IMapper<T> where T : IIdentifiable
+    public abstract class AbstractSqlMapper<T> where T : IIdentifiable
     {
         public DatabaseConnection Database { get; private set; }
 
