@@ -24,9 +24,11 @@ namespace Web.Controllers
             return View("Index", this.Person.Subjects);
         }
 
+        [HttpPost]
         public ActionResult AddTestGrade(long subject, double value, double weight)
         {
             this.ViewData["pendingGrade"] = new TestGrade() { SubjectId = subject, Value = value, Weight = weight };
+
             return Index();
         }
     }

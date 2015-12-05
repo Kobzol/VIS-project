@@ -38,15 +38,15 @@ namespace DataLayer.DataMapper.SqlMapper
 
         public IEnumerable<IAbsence> FindBySubjectId(long subjectId)
         {
-            SqlCommand command = this.Database.GetCommand("SELECT date, type, studentId, teachingHourId, subjectId FROM {0} WHERE subjectId = @subjectId".FormatWith(this.TableName));
+            SqlCommand command = this.Database.GetCommand("SELECT id, date, type, excused, studentId, teachingHourId, subjectId FROM {0} WHERE subjectId = @subjectId".FormatWith(this.TableName));
             command.Parameters.AddWithValue("subjectId", subjectId);
 
             return this.FindMultiple(command);
         }
 
-        protected override IAbsence LoadObject(System.Data.SqlClient.SqlDataReader reader)
+        protected override IAbsence LoadObject(SqlDataReader reader)
         {
-            IPerson student = this.studentRepository.Find(reader.GetColumnValue<long>("studentId"));
+            long student = reader.GetColumnValue<long>("studentId");
             ITeachingHour hour = this.teachingHourRepository.Find(reader.GetColumnValue<long>("teachingHourId"));
 
             IAbsence absence = new Absence(
@@ -69,7 +69,7 @@ namespace DataLayer.DataMapper.SqlMapper
                 {"date", t.Date},
                 {"type", (uint) t.Type},
                 {"excused", (byte) (t.Excused ? 1 : 0)},
-                {"studentId", t.Student.Id},
+                {"studentId", t.Student},
                 {"teachingHourId", t.Hour.Id}
             };
         }

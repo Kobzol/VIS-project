@@ -17,7 +17,7 @@ namespace Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Grade");
+                return RedirectToAction("Index", "Home");
             }
 
             return View("Index", new LoginForm());
@@ -45,7 +45,7 @@ namespace Web.Controllers
                     HttpCookie faCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket);
                     Response.Cookies.Add(faCookie);
 
-                    return RedirectToAction("Index", "Grade");
+                    return RedirectToAction("Index");
                 }
 
                 form.Error = "Wrong username/password combination";

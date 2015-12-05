@@ -44,6 +44,10 @@
 .subjects-wrapper table .test-grade input[type=number] {
   width: 30px;
 }
+.absence-wrapper td,
+.absence-wrapper th {
+  padding: 5px;
+}
 .error {
   color: red;
 }

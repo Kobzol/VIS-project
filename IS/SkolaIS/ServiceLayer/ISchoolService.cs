@@ -14,5 +14,8 @@ namespace ServiceLayer
     {
         [OperationContract]
         PersonDTO GetPerson(long id);
+
+        [OperationContract]
+        bool IsLoginValid(string username, string password);
     }
 }

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SubjectDTO>
+@{
+    bool absenceFound = false;       
+}
+<h1>Absence</h1>
+@foreach (SubjectDTO subject in Model)
+{
+    IEnumerable<AbsenceDTO> absences = from abs
+                                       in subject.Absences
+                                       where abs.Student == this.BasePage.Person.Id
+                                       select abs;
+
+    if (absences.Count() > 0)
+    {
+        absenceFound = true;
+        <div class="subject-name"><h2>@subject.Name</h2></div>
+        <table class="absence-wrapper" border="1">
+            <tr><th>Date</th><th>Type</th><th>Excused</th></tr>
+            @foreach (AbsenceDTO absence in absences)
+            {
+                <tr><td>@absence.Date.ToShortDateString()</td><td>@absence.Type</td><td>@(absence.Excused ? "Excused" : "Not excused")</td></tr>
+            }
+        </table>
+    }
+}
+
+@if (!absenceFound)
+{
+    <div>No absence found :-)</div>
+}

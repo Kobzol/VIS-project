@@ -61,7 +61,7 @@ namespace ServiceLayer
                 Excused = absence.Excused,
                 Type = Convert(absence.Type),
                 Hour = Convert(absence.Hour),
-                Student = Convert(absence.Student)
+                Student = absence.Student
             };
         }
         public static AbsenceTypeDTO Convert(AbsenceType absenceType)

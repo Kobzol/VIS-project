@@ -26,11 +26,9 @@ namespace DataLayer.DataMapper.SqlMapper
             get { return "INSERT INTO {0}(weight, value, studentId, testId) VALUES(@weight, @value, @studentId, @testId)".FormatWith(this.TableName); }
         }
 
-        private IPersonRepository studentRepository;
-
-        public SqlGradeMapper(DatabaseConnection connection, IPersonRepository studentRepository) : base(connection)
+        public SqlGradeMapper(DatabaseConnection connection) : base(connection)
         {
-            this.studentRepository = studentRepository;
+            
         }
 
         public Dictionary<long, IGrade> FindByTestId(long testId)

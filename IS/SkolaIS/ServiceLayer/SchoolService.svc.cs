@@ -5,8 +5,10 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Web.Hosting;
 using DataLayer.Database;
 using DataLayer.DataMapper.SqlMapper;
+using DataLayer.DataMapper.XmlMapper;
 using DataTransfer;
 using DomainLayer;
 using DomainLayer.Repository;
@@ -37,6 +39,8 @@ namespace ServiceLayer
 
         private static void InitMappers(DatabaseConnection connection, RepoContainer repository)
         {
+            string gradeXml = HostingEnvironment.MapPath("~/xml");
+
             SqlPersonMapper personMapper = new SqlPersonMapper(connection);
             SqlTeachingHourMapper teachingHourMapper = new SqlTeachingHourMapper(connection);
             SqlScheduleMapper scheduleMapper = new SqlScheduleMapper(connection, teachingHourMapper);
@@ -44,7 +48,7 @@ namespace ServiceLayer
             SqlTestMapper testMapper = new SqlTestMapper(connection);
             SqlSubjectMapper subjectMapper = new SqlSubjectMapper(connection, absenceMapper, scheduleMapper, testMapper);
             SqlClassMapper classMapper = new SqlClassMapper(connection, personMapper);
-            SqlGradeMapper gradeMapper = new SqlGradeMapper(connection, personMapper);
+            SqlGradeMapper gradeMapper = new SqlGradeMapper(connection);
             SqlSupplementMapper supplementMapper = new SqlSupplementMapper(connection, teachingHourMapper, scheduleMapper);
 
             personMapper.SubjectRepository = subjectMapper; // break object cycle
@@ -60,6 +64,12 @@ namespace ServiceLayer
             repository.Test = testMapper;
             repository.Grade = gradeMapper;
             repository.Supplement = supplementMapper;
+        }
+
+
+        public bool IsLoginValid(string username, string password)
+        {
+            throw new NotImplementedException();
         }
     }
 }

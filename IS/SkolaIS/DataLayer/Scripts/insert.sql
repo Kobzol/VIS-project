@@ -44,3 +44,5 @@ INSERT INTO ScheduleTeachingHour(scheduleId, teachingHourId) VALUES(1, 20);
 INSERT INTO ScheduleTeachingHour(scheduleId, teachingHourId) VALUES(2, 14);
 INSERT INTO ScheduleTeachingHour(scheduleId, teachingHourId) VALUES(2, 18);
 INSERT INTO ScheduleTeachingHour(scheduleId, teachingHourId) VALUES(2, 33);
+
+INSERT INTO Absence([date], [type], excused, studentId, teachingHourId, subjectId) VALUES(GETDATE(), 1, 1, 1, 5, 1);

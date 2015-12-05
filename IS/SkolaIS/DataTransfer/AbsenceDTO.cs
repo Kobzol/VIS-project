@@ -12,7 +12,7 @@ namespace DataTransfer
         public DateTime Date { get; set; }
         public AbsenceTypeDTO Type { get; set; }
         public bool Excused { get; set; }
-        public PersonDTO Student { get; set; }
+        public long Student { get; set; }
         public TeachingHourDTO Hour { get; set; }
     }
 }
