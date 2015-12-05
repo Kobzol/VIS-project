@@ -12,11 +12,7 @@ namespace Web.Controllers
     {
         public ActionResult Index()
         {
-            if (this.Person.Role == PersonRoleDTO.Student)
-            {
-                return RedirectToAction("Index", "Grade");
-            }
-            else return RedirectToAction("Index", "Schedule");
+            return RedirectToAction("Index", "Schedule");
         }
     }
 }

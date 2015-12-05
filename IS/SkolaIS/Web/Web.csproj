@@ -130,6 +130,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Scripts\script.js" />
     <Content Include="Style\bootstrap-theme.css">
       <DependentUpon>bootstrap-theme.less</DependentUpon>
     </Content>
@@ -159,6 +160,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +191,7 @@
     <Content Include="Style\style.less" />
     <Content Include="Views\Grade\Index.cshtml" />
     <Content Include="Views\Absence\Index.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -198,9 +201,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
-    <Folder Include="Views\Home\" />
-    <Folder Include="Views\Logout\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataTransfer\DataTransfer.csproj">

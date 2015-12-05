@@ -48,6 +48,13 @@
 .absence-wrapper th {
   padding: 5px;
 }
+.schedule td,
+.schedule th {
+  padding: 5px;
+}
+.available-teachers {
+  margin-top: 10px;
+}
 .error {
   color: red;
 }

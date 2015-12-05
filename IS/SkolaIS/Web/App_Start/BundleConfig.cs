@@ -12,7 +12,8 @@ namespace Web.App_Start
         {
             bundles.Add(new ScriptBundle("~/Scripts/base").Include(
                 "~/Scripts/jquery*",
-                "~/Scripts/bootstrap.js"
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/script.js"
             ));
 
             bundles.Add(new StyleBundle("~/Style/base").Include(

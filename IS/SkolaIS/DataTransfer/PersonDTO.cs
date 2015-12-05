@@ -16,5 +16,14 @@ namespace DataTransfer
         public PersonRoleDTO Role { get; set; }
         public IEnumerable<SubjectDTO> Subjects { get; set; }
         public ClassDTO Class { get; set; }
+
+        public bool IsStudent()
+        {
+            return this.Role == PersonRoleDTO.Student;
+        }
+        public bool IsTeacher()
+        {
+            return this.Role == PersonRoleDTO.Teacher;
+        }
     }
 }

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<SubjectDTO>
+@functions
+{
+    public static SubjectDTO FindHour(int day, int order, IEnumerable<SubjectDTO> subjects)
+    {
+        foreach (SubjectDTO subject in subjects)
+        {
+            IEnumerable<TeachingHourDTO> hour =
+                                   from h
+                                   in subject.Schedule.Hours
+                                   where h.Day == day && h.Order == order
+                                   select h;
+                                   
+            if (hour.Count() > 0)
+            {
+                return subject;
+            }
+        }
+
+        return null;
+    }
+}
+<h1>Schedule</h1>
+<table class="schedule" border="1">
+    <tr>
+        <th>Day</th>
+        @for (int i = 0; i < 8; i++)
+        {
+            <th>Hour #@i</th>
+        }
+    </tr>
+    @for (int i = 0; i < 5; i++)
+    {
+        string dayName = System.Threading.Thread.CurrentThread.CurrentUICulture.DateTimeFormat.GetDayName((DayOfWeek)(DayOfWeek.Monday + i));
+        <tr>
+            <td>@dayName</td>
+            @for (int j = 0; j < 8; j++)
+            {
+                SubjectDTO subject = FindHour(i, j, Model);
+
+                if (subject != null)
+                {
+                    <td>
+                        @subject.Name
+
+                    @if (this.BasePage.Person.IsTeacher())
+                    {
+                        <div class="supplement-wrapper">
+                            <input type="hidden" name="subjectId" value="@subject.Id" />
+                            <input type="hidden" name="day" value="@i" />
+                            <input type="hidden" name="order" value="@j" />
+                            <button class="supplement-list">S</button>
+                        </div>
+                    }
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }
+            }
+        </tr>
+    }
+</table>
+<div class="available-teachers">
+    <input type="hidden" name="selected-subject" />
+    <input type="hidden" name="selected-day" />
+    <input type="hidden" name="selected-order" />
+    <div class="list">
+
+    </div>
+</div>
