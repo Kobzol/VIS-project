@@ -12,13 +12,15 @@ namespace DomainLayer
         public int Year { get; private set; }
         public IEnumerable<IAbsence> Absences { get; private set; }
         public ISchedule Schedule { get; private set; }
+        public IEnumerable<ITest> Tests { get; private set; }
 
-        public Subject(string name, int year, IEnumerable<IAbsence> absences, ISchedule schedule)
+        public Subject(string name, int year, IEnumerable<IAbsence> absences, ISchedule schedule, IEnumerable<ITest> tests)
         {
             this.Name = name;
             this.Year = year;
             this.Absences = absences;
             this.Schedule = schedule;
+            this.Tests = tests;
         }
     }
 }

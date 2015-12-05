@@ -10,13 +10,13 @@ namespace DomainLayer
     {
         public string Name { get; private set; }
         public DateTime Date { get; private set; }
-        public ISubject Subject { get; private set; }
+        public Dictionary<long, IGrade> Grades { get; private set; }
 
-        public Test(string name, DateTime date, ISubject subject)
+        public Test(string name, DateTime date, Dictionary<long, IGrade> grades)
         {
             this.Name = name;
             this.Date = date;
-            this.Subject = subject;
+            this.Grades = grades;
         }
     }
 }

@@ -12,13 +12,20 @@ namespace Web.Controllers
 {
     public class LoginController : BaseController
     {
-        public ActionResult Index(LoginForm form)
+        [HttpGet]
+        public ActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Grade");
             }
 
+            return View("Index", new LoginForm());
+        }
+
+        [HttpPost]
+        public ActionResult Index(LoginForm form)
+        {
             if (ModelState.IsValid)
             {
                 if (this.IsLoginValid(form.Username, form.Password))
@@ -40,9 +47,11 @@ namespace Web.Controllers
 
                     return RedirectToAction("Index", "Grade");
                 }
+
+                form.Error = "Wrong username/password combination";
             }
 
-            return View(form);
+            return View("Index", form);
         }
 
         private bool IsLoginValid(string username, string password)

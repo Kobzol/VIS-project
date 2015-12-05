@@ -13,5 +13,6 @@ namespace DataTransfer
         public int Year { get; set; }
         public IEnumerable<AbsenceDTO> Absences { get; set; }
         public ScheduleDTO Schedule { get; set; }
+        public IEnumerable<TestDTO> Tests { get; set; }
     }
 }

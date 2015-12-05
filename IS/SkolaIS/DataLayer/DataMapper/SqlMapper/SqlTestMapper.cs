@@ -26,16 +26,16 @@ namespace DataLayer.DataMapper.SqlMapper
             get { return "INSERT INTO {0}(name, date, subjectId) VALUES(@name, @date, @subjectId)".FormatWith(this.TableName); }
         }
 
-        private ISubjectRepository subjectRepository;
+        public IGradeRepository GradeRepository { get; set; }
 
-        public SqlTestMapper(DatabaseConnection connection, ISubjectRepository subjectRepository) : base(connection)
+        public SqlTestMapper(DatabaseConnection connection, IGradeRepository gradeRepository = null) : base(connection)
         {
-            this.subjectRepository = subjectRepository;
+            this.GradeRepository = gradeRepository;
         }
 
         public IEnumerable<ITest> FindBySubjectId(long subjectId)
         {
-            SqlCommand command = this.Database.GetCommand("SELECT name, date, subjectId FROM {0} WHERE subjectId = @subjectId".FormatWith(this.TableName));
+            SqlCommand command = this.Database.GetCommand("SELECT id, name, date, subjectId FROM {0} WHERE subjectId = @subjectId".FormatWith(this.TableName));
             command.Parameters.AddWithValue("subjectId", subjectId);
 
             return this.FindMultiple(command);
@@ -43,15 +43,17 @@ namespace DataLayer.DataMapper.SqlMapper
 
         protected override ITest LoadObject(System.Data.SqlClient.SqlDataReader reader)
         {
-            ISubject subject = this.subjectRepository.Find(reader.GetColumnValue<long>("subjectId"));
+            long id = this.GetId(reader);
 
-            Test test = new Test(
+            Dictionary<long, IGrade> grades = this.GradeRepository.FindByTestId(id);
+
+            ITest test = new Test(
                 reader.GetColumnValue<string>("name"),
                 reader.GetColumnValue<DateTime>("date"),
-                subject
+                grades
             );
 
-            this.AddId(test, this.GetId(reader));
+            this.AddId(test, id);
 
             return test;
         }
@@ -61,8 +63,7 @@ namespace DataLayer.DataMapper.SqlMapper
             return new Dictionary<string, object>()
             {
                 {"name", t.Name},
-                {"date", t.Date},
-                {"subjectId", t.Subject.Id}
+                {"date", t.Date}
             };
         }
 

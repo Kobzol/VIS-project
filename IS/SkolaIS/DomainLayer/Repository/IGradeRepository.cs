@@ -8,6 +8,6 @@ namespace DomainLayer.Repository
 {
     public interface IGradeRepository : IRepository<IGrade>
     {
-        IEnumerable<IGrade> FindByTestId(long testId);
+        Dictionary<long, IGrade> FindByTestId(long testId);
     }
 }

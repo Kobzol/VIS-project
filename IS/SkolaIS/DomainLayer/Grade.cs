@@ -10,15 +10,11 @@ namespace DomainLayer
     {
         public double Weight { get; private set; }
         public double Value { get; private set; }
-        public IPerson Student { get; private set; }
-        public ITest Test { get; private set; }
 
-        public Grade(double weight, double value, IPerson student, ITest test)
+        public Grade(double weight, double value)
         {
             this.Weight = weight;
             this.Value = value;
-            this.Student = student;
-            this.Test = test;
         }
     }
 }

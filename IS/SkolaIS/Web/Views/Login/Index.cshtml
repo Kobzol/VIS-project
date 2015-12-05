@@ -1,5 +1,5 @@
 ﻿@model Web.Models.Login.LoginForm
-
+<h1>Login form</h1>
 @using (Html.BeginForm("Index", "Login", FormMethod.Post))
 {
     <fieldset>
@@ -13,7 +13,7 @@
             @Html.PasswordFor(m => m.Password)
             @Html.ValidationMessageFor(m => m.Password)
         </div>
-
+        <div class="error">@Model.Error</div>
         <input type="submit" value="Login" />
     </fieldset>
 }

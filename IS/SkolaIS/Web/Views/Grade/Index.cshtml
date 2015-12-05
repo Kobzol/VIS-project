@@ -1,9 +1,60 @@
 ﻿@model IEnumerable<SubjectDTO>
 <div class="subjects-wrapper">
+    <div><h1>Subjects</h1></div>
     @foreach (SubjectDTO subject in Model)
     {
-        <div class="subject">
-            @subject.Name
-        </div>
+        <table border="1">
+            <tr>
+                <th rowspan="2">@subject.Name</th>
+                @foreach (TestDTO test in subject.Tests)
+                {
+                    <th>@test.Name</th>
+                }
+                <th>Test grade</th>
+                <th>Average</th>
+                <th>Add test mark</th>
+            </tr>
+            <tr>
+                @{
+                    double average = 0.0;
+                    double averageCount = 0;
+                }
+                @foreach (TestDTO test in subject.Tests)
+                {
+                    GradeDTO grade = test.Grades.ContainsKey(this.BasePage.Person.Id) ? test.Grades[this.BasePage.Person.Id] : null;
+                    string gradeText = "without grade";
+
+                    if (grade != null)
+                    {
+                        gradeText = "{0} (weight {1})".FormatWith(grade.Value, grade.Weight);
+                        average += grade.Value * grade.Weight;
+                        averageCount += grade.Weight;
+                    }
+
+                    <td>@gradeText</td>
+                }
+                @{
+                    if (ViewBag.TestGrade != null && ViewBag.TestGrade.SubjectId == subject.Id)
+                    {
+                        <td>@("{0} (weight {1})".FormatWith((double) ViewBag.TestGrade.Value, (double) ViewBag.TestGrade.Weight))</td>
+                        average += ViewBag.TestGrade.Value * ViewBag.TestGrade.Weight;
+                        averageCount += ViewBag.TestGrade.Weight;
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                }
+                <td>@(averageCount == 0 ? 0.0 : average / averageCount)</td>
+                <td class="test-grade">
+                    <form action="@Url.Action("AddTestGrade", "Grade")" method="post">
+                        <input type="hidden" name="subject" value="@subject.Id" />
+                        <label>Value:</label><input type="number" name="value" value="1" min="1" max="5" />
+                        <label>Weight:</label><input type="number" name="weight" value="1" min="1" max="10" />
+                        <input type="submit" value="Add" />
+                    </form>
+                </td>
+            </tr>
+        </table>
     }
 </div>

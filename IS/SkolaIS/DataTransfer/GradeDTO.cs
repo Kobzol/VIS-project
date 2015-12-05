@@ -11,7 +11,5 @@ namespace DataTransfer
     {
         public double Weight { get; set; }
         public double Value { get; set; }
-        public PersonDTO Student { get; set; }
-        public TestDTO Test { get; set; }
     }
 }

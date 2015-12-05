@@ -14,6 +14,8 @@ namespace Web.Models.Login
 
         [Required]
         [StringLength(50, MinimumLength = 1)]
-        public string Password { get; set; } 
+        public string Password { get; set; }
+
+        public string Error { get; set; }
     }
 }

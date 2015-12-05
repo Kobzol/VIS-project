@@ -27,33 +27,36 @@ namespace DataLayer.DataMapper.SqlMapper
         }
 
         private IPersonRepository studentRepository;
-        private ITestRepository testRepository;
 
-        public SqlGradeMapper(DatabaseConnection connection, IPersonRepository studentRepository, ITestRepository testRepository)
-            : base(connection)
+        public SqlGradeMapper(DatabaseConnection connection, IPersonRepository studentRepository) : base(connection)
         {
             this.studentRepository = studentRepository;
-            this.testRepository = testRepository;
         }
 
-        public IEnumerable<IGrade> FindByTestId(long testId)
+        public Dictionary<long, IGrade> FindByTestId(long testId)
         {
-            SqlCommand command = this.Database.GetCommand("SELECT weight, value, studentId, testId FROM {0} WHERE testId = @testId".FormatWith(this.TableName));
+            SqlCommand command = this.Database.GetCommand("SELECT id, weight, value, studentId FROM {0} WHERE testId = @testId".FormatWith(this.TableName));
             command.Parameters.AddWithValue("testId", testId);
 
-            return this.FindMultiple(command);
+            Dictionary<long, IGrade> grades = new Dictionary<long, IGrade>();
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    IGrade grade = this.LoadObjectFromCache(reader);
+                    grades.Add(reader.GetColumnValue<long>("studentId"), grade);
+                }
+            }
+
+            return grades;
         }
 
         protected override IGrade LoadObject(SqlDataReader reader)
         {
-            IPerson student = this.studentRepository.Find(reader.GetColumnValue<long>("studentId"));
-            ITest test = this.testRepository.Find(reader.GetColumnValue<long>("testId"));
-
             IGrade grade = new Grade(
                 reader.GetColumnValue<double>("weight"),
-                reader.GetColumnValue<double>("value"),
-                student,
-                test
+                reader.GetColumnValue<double>("value")
             );
 
             this.AddId(grade, this.GetId(reader));
@@ -66,9 +69,7 @@ namespace DataLayer.DataMapper.SqlMapper
             return new Dictionary<string, object>()
             {
                 {"weight", t.Weight},
-                {"value", t.Value},
-                {"studentId", t.Student.Id},
-                {"testId", t.Test.Id}
+                {"value", t.Value}
             };
         }
         protected override Dictionary<string, object> GetInsertValues(IGrade t)

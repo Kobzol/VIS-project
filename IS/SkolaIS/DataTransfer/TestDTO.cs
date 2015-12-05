@@ -11,6 +11,6 @@ namespace DataTransfer
     {
         public string Name { get; set; }
         public DateTime Date { get; set; }
-        public SubjectDTO Subject { get; set; }
+        public Dictionary<long, GradeDTO> Grades { get; set; }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DataTransfer;
+using Web.Models.Grade;
+using Web.Models.Subject;
 
 namespace Web.Controllers
 {
@@ -12,9 +14,20 @@ namespace Web.Controllers
     {
         public ActionResult Index()
         {
-            PersonDTO person = this.ServiceProxy.GetPerson(this.User.PersonId);
+            dynamic obj = this.ViewData["pendingGrade"];
 
-            return View("Index", person.Subjects);
+            if (obj != null)
+            {
+                ViewBag.TestGrade = obj;
+            }
+
+            return View("Index", this.Person.Subjects);
+        }
+
+        public ActionResult AddTestGrade(long subject, double value, double weight)
+        {
+            this.ViewData["pendingGrade"] = new TestGrade() { SubjectId = subject, Value = value, Weight = weight };
+            return Index();
         }
     }
 }

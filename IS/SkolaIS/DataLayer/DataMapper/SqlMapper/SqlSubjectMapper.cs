@@ -28,11 +28,13 @@ namespace DataLayer.DataMapper.SqlMapper
 
         private IAbsenceRepository absenceRepository;
         private IScheduleRepository scheduleRepository;
+        private ITestRepository testRepository;
 
-        public SqlSubjectMapper(DatabaseConnection connection, IAbsenceRepository absenceRepository, IScheduleRepository scheduleRepository) : base(connection)
+        public SqlSubjectMapper(DatabaseConnection connection, IAbsenceRepository absenceRepository, IScheduleRepository scheduleRepository, ITestRepository testRepository) : base(connection)
         {
             this.absenceRepository = absenceRepository;
             this.scheduleRepository = scheduleRepository;
+            this.testRepository = testRepository;
         }
 
         public IEnumerable<ISubject> FindByStudentId(long studentId)
@@ -54,12 +56,14 @@ namespace DataLayer.DataMapper.SqlMapper
 
             IEnumerable<IAbsence> absences = this.absenceRepository.FindBySubjectId(id);
             ISchedule schedule = this.scheduleRepository.Find(reader.GetColumnValue<long>("scheduleId"));
+            IEnumerable<ITest> tests = this.testRepository.FindBySubjectId(id);
 
             ISubject subject = new Subject(
                 reader.GetColumnValue<string>("name"),
                 reader.GetColumnValue<int>("year"),
                 absences,
-                schedule
+                schedule,
+                tests
             );
 
             this.AddId(subject, id);

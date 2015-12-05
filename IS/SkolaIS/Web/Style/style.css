@@ -1,1 +1,49 @@
-﻿
+﻿.wrapper {
+  width: 1080px;
+  min-height: 800px;
+  margin: 0 auto;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 5px;
+}
+.wrapper header {
+  overflow: hidden;
+}
+.wrapper header .menu {
+  border: 1px solid #888888;
+  padding: 5px;
+  border-radius: 5px;
+}
+.wrapper header .badge {
+  display: block;
+  margin-bottom: 5px;
+  padding: 10px;
+  overflow: hidden;
+}
+.wrapper header .badge .main-label {
+  float: left;
+}
+.wrapper header .badge .name {
+  float: right;
+}
+.wrapper .content {
+  margin-top: 10px;
+}
+.subjects-wrapper table {
+  margin-top: 10px;
+}
+.subjects-wrapper table td,
+.subjects-wrapper table th {
+  padding: 5px;
+  text-align: center;
+}
+.subjects-wrapper table th:first-child {
+  width: 100px;
+}
+.subjects-wrapper table .test-grade input[type=number] {
+  width: 30px;
+}
+.error {
+  color: red;
+}

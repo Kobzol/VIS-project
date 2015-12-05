@@ -9,6 +9,6 @@ namespace DomainLayer
     {
         string Name { get; }
         DateTime Date { get; }
-        ISubject Subject { get; }
+        Dictionary<long, IGrade> Grades { get; }
     }
 }

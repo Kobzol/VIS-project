@@ -27,7 +27,8 @@ namespace ServiceLayer
                 Name = subject.Name,
                 Year = subject.Year,
                 Absences = ConvertAll(subject.Absences),
-                Schedule = Convert(subject.Schedule)
+                Schedule = Convert(subject.Schedule),
+                Tests = ConvertAll(subject.Tests)
             };
         }
         public static RoomDTO Convert(Room room)
@@ -49,7 +50,7 @@ namespace ServiceLayer
         }
         public static PersonRoleDTO Convert(PersonRole role)
         {
-            return (PersonRoleDTO) role;
+            return (PersonRoleDTO)role;
         }
         public static AbsenceDTO Convert(IAbsence absence)
         {
@@ -90,9 +91,7 @@ namespace ServiceLayer
             {
                 Id = grade.Id,
                 Value = grade.Value,
-                Weight = grade.Weight,
-                Test = Convert(grade.Test),
-                Student = Convert(grade.Student)
+                Weight = grade.Weight
             };
         }
         public static TestDTO Convert(ITest test)
@@ -102,7 +101,7 @@ namespace ServiceLayer
                 Id = test.Id,
                 Name = test.Name,
                 Date = test.Date,
-                Subject = Convert(test.Subject)
+                Grades = ConvertAll(test.Grades)
             };
         }
 
@@ -139,13 +138,24 @@ namespace ServiceLayer
 
             return converted;
         }
-        public static IEnumerable<GradeDTO> ConvertAll(IEnumerable<GradeDTO> grades)
+        public static Dictionary<long, GradeDTO> ConvertAll(Dictionary<long, IGrade> grades)
         {
-            List<GradeDTO> converted = new List<GradeDTO>();
+            Dictionary<long, GradeDTO> converted = new Dictionary<long, GradeDTO>();
 
-            foreach (IGrade grade in grades)
+            foreach (long id in grades.Keys)
             {
-                converted.Add(Convert(grade));
+                converted.Add(id, Convert(grades[id]));
+            }
+
+            return converted;
+        }
+        public static IEnumerable<TestDTO> ConvertAll(IEnumerable<ITest> tests)
+        {
+            List<TestDTO> converted = new List<TestDTO>();
+
+            foreach (ITest test in tests)
+            {
+                converted.Add(Convert(test));
             }
 
             return converted;

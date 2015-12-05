@@ -11,8 +11,35 @@
     <meta name="description" content="School IS" />
 </head>
 <body>
-    <div>
-        @RenderBody()
+    <div class="wrapper">
+        <header>
+            <div class="badge">
+                <div class="main-label">School information system</div>
+                @if (this.BasePage.IsUserLoggedIn())
+                {
+                    <div class="name">@("{0} {1}".FormatWith(BasePage.Person.Name, BasePage.Person.Surname))</div>
+                }
+            </div>
+            <div class="menu">
+                <ul class="nav nav-pills">
+                    @MenuItem(@Url.Action("Index", "Login"), "login", "Log in", false)
+                    @MenuItem(@Url.Action("Index", "Grade"), "grade", "Grades")
+                    @MenuItem(@Url.Action("Index", "Logout"), "logout", "Log out")
+                </ul>
+            </div>
+        </header>
+        <div class="content">
+            @RenderBody()
+        </div>
     </div>
+
 </body>
 </html>
+
+@helper MenuItem(string link, string controllerName, string name, bool displayWithLogin = true)
+{
+    if ((this.BasePage.IsUserLoggedIn() && displayWithLogin) || (!this.BasePage.IsUserLoggedIn() && !displayWithLogin))
+    {
+        <li class="@(controllerName == this.BasePage.PageName ? "active" : "")"><a href="@link">@name</a></li>
+    }
+}

@@ -9,7 +9,5 @@ namespace DomainLayer
     {
         double Weight { get; }
         double Value { get; }
-        IPerson Student { get; }
-        ITest Test { get; }
     }
 }

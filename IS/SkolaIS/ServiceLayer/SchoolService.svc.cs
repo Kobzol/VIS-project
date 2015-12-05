@@ -41,14 +41,15 @@ namespace ServiceLayer
             SqlTeachingHourMapper teachingHourMapper = new SqlTeachingHourMapper(connection);
             SqlScheduleMapper scheduleMapper = new SqlScheduleMapper(connection, teachingHourMapper);
             SqlAbsenceMapper absenceMapper = new SqlAbsenceMapper(connection, personMapper, teachingHourMapper);
-            SqlSubjectMapper subjectMapper = new SqlSubjectMapper(connection, absenceMapper, scheduleMapper);
+            SqlTestMapper testMapper = new SqlTestMapper(connection);
+            SqlSubjectMapper subjectMapper = new SqlSubjectMapper(connection, absenceMapper, scheduleMapper, testMapper);
             SqlClassMapper classMapper = new SqlClassMapper(connection, personMapper);
-            SqlTestMapper testMapper = new SqlTestMapper(connection, subjectMapper);
-            SqlGradeMapper gradeMapper = new SqlGradeMapper(connection, personMapper, testMapper);
+            SqlGradeMapper gradeMapper = new SqlGradeMapper(connection, personMapper);
             SqlSupplementMapper supplementMapper = new SqlSupplementMapper(connection, teachingHourMapper, scheduleMapper);
 
             personMapper.SubjectRepository = subjectMapper; // break object cycle
             personMapper.ClassRepository = classMapper;
+            testMapper.GradeRepository = gradeMapper;
 
             repository.TeachingHour = teachingHourMapper;
             repository.Schedule = scheduleMapper;

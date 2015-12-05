@@ -11,5 +11,6 @@ namespace DomainLayer
         int Year { get; }
         IEnumerable<IAbsence> Absences { get; }
         ISchedule Schedule { get; }
+        IEnumerable<ITest> Tests { get; }
     }
 }
