@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="aa529ffa-6c41-4684-8fce-75531bac3126" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c156c8fa-dc39-401d-a42c-d96d9809b796" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -23,11 +23,11 @@
     <MetadataSource Address="http://localhost:5857/SchoolService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SchoolService.xsd" MetadataType="Schema" ID="bd4395cf-0f16-40e6-a1ca-14b3e9321514" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?xsd=xsd2" />
-    <MetadataFile FileName="SchoolService.wsdl" MetadataType="Wsdl" ID="b77cfa67-8393-4ab4-af85-481d52036b13" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?wsdl" />
-    <MetadataFile FileName="SchoolService.disco" MetadataType="Disco" ID="2a97c068-34aa-48ef-9e5b-31ef367dcd99" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?disco" />
-    <MetadataFile FileName="SchoolService1.xsd" MetadataType="Schema" ID="273bfeef-1395-4645-a834-c59c491eb252" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?xsd=xsd1" />
-    <MetadataFile FileName="SchoolService2.xsd" MetadataType="Schema" ID="01493a1f-6dfe-4697-b48d-7d60e52bb9e1" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SchoolService.xsd" MetadataType="Schema" ID="2066271b-65c4-4650-b15d-e660b0a038da" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SchoolService.wsdl" MetadataType="Wsdl" ID="479f79ff-784f-4abc-b88d-ee5ed6ceecfd" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?wsdl" />
+    <MetadataFile FileName="SchoolService.disco" MetadataType="Disco" ID="b30a6728-145c-4c6a-ba99-784a25f61741" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?disco" />
+    <MetadataFile FileName="SchoolService1.xsd" MetadataType="Schema" ID="72e2598e-4556-494c-9065-f22147a6b079" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SchoolService2.xsd" MetadataType="Schema" ID="4a7fe7e9-80a0-479f-a22a-963256b2e023" SourceId="1" SourceUrl="http://localhost:5857/SchoolService.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

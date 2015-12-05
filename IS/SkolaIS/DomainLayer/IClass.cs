@@ -10,6 +10,5 @@ namespace DomainLayer
         int FirstYear { get; }
         int FinalYear { get; }
         Room Room { get; }
-        ITeacher Teacher { get; }
     }
 }

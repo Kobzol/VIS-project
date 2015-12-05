@@ -63,6 +63,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTOConverter.cs" />
     <Compile Include="SchoolService.svc.cs">
       <DependentUpon>SchoolService.svc</DependentUpon>
     </Compile>
@@ -81,6 +82,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{3a3a0bc0-df83-4c4d-a98a-baf985c6c76d}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataTransfer\DataTransfer.csproj">
+      <Project>{668687b9-8e4b-408a-87c1-0ebd471ba874}</Project>
+      <Name>DataTransfer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DomainLayer\DomainLayer.csproj">
       <Project>{31794113-81a2-4273-81c9-257f37c1002c}</Project>
       <Name>DomainLayer</Name>

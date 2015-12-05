@@ -87,6 +87,8 @@ namespace DataLayer.DataMapper.SqlMapper
             command.Parameters.AddWithValue(this.ColumnId, t.Id);
 
             command.ExecuteNonQuery();
+
+            this.identityMap.RemoveObject(t);
         }
 
         protected virtual T LoadObjectFromCache(SqlDataReader reader)
@@ -97,7 +99,12 @@ namespace DataLayer.DataMapper.SqlMapper
             {
                 return this.GetStoredObject(id);
             }
-            else return this.LoadObject(reader);
+            
+            T obj = this.LoadObject(reader);
+
+            this.identityMap.PutObject(obj);
+
+            return obj;
         }
         protected abstract T LoadObject(SqlDataReader reader);
         protected abstract Dictionary<string, object> GetUpdateValues(T t);

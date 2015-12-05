@@ -11,10 +11,10 @@ namespace DomainLayer
         public DateTime Date { get; private set; }
         public AbsenceType Type { get; private set; }
         public bool Excused { get; private set; }
-        public IStudent Student { get; private set; }
+        public IPerson Student { get; private set; }
         public ITeachingHour Hour { get; private set; }
 
-        public Absence(DateTime date, AbsenceType type, bool excused, IStudent student, ITeachingHour hour)
+        public Absence(DateTime date, AbsenceType type, bool excused, IPerson student, ITeachingHour hour)
         {
             this.Date = date;
             this.Type = type;

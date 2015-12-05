@@ -11,8 +11,7 @@ namespace DomainLayer.Repository
         public static RepoContainer Instance { get { return RepoContainer.instance; } }
         private static RepoContainer instance = new RepoContainer();
 
-        public IStudentRepository Student { get; set; }
-        public ITeacherRepository Teacher { get; set; }
+        public IPersonRepository Person { get; set; }
         public IClassRepository Class { get; set; }
         public ISubjectRepository Subject { get; set; }
         public IScheduleRepository Schedule { get; set; }

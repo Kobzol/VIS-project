@@ -26,10 +26,11 @@ namespace DataLayer.DataMapper.SqlMapper
             get { return "INSERT INTO {0}(date, type, excused, studentId, teachingHourId) VALUES(@date, @type, @excused, @studentId, @teachingHourId, @subjectId)".FormatWith(this.TableName); }
         }
 
-        private IStudentRepository studentRepository;
+        private IPersonRepository studentRepository;
         private ITeachingHourRepository teachingHourRepository;
 
-        public SqlAbsenceMapper(DatabaseConnection connection, IStudentRepository studentRepository, ITeachingHourRepository teachingHourRepository) : base(connection)
+        public SqlAbsenceMapper(DatabaseConnection connection, IPersonRepository studentRepository, ITeachingHourRepository teachingHourRepository)
+            : base(connection)
         {
             this.studentRepository = studentRepository;
             this.teachingHourRepository = teachingHourRepository;
@@ -45,7 +46,7 @@ namespace DataLayer.DataMapper.SqlMapper
 
         protected override IAbsence LoadObject(System.Data.SqlClient.SqlDataReader reader)
         {
-            IStudent student = this.studentRepository.Find(reader.GetColumnValue<long>("studentId"));
+            IPerson student = this.studentRepository.Find(reader.GetColumnValue<long>("studentId"));
             ITeachingHour hour = this.teachingHourRepository.Find(reader.GetColumnValue<long>("teachingHourId"));
 
             IAbsence absence = new Absence(

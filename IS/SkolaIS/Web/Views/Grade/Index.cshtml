@@ -1,0 +1,9 @@
+﻿@model IEnumerable<SubjectDTO>
+<div class="subjects-wrapper">
+    @foreach (SubjectDTO subject in Model)
+    {
+        <div class="subject">
+            @subject.Name
+        </div>
+    }
+</div>

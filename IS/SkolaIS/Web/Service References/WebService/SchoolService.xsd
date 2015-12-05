@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DataTransfer" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataTransfer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="PersonDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element name="_x003C_BirthDate_x003E_k__BackingField" type="xs:dateTime" />
+          <xs:element name="_x003C_Class_x003E_k__BackingField" nillable="true" type="tns:ClassDTO" />
+          <xs:element name="_x003C_Email_x003E_k__BackingField" nillable="true" type="xs:string" />
+          <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+          <xs:element name="_x003C_Role_x003E_k__BackingField" type="tns:PersonRoleDTO" />
+          <xs:element name="_x003C_Subjects_x003E_k__BackingField" nillable="true" type="tns:ArrayOfSubjectDTO" />
+          <xs:element name="_x003C_Surname_x003E_k__BackingField" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PersonDTO" nillable="true" type="tns:PersonDTO" />
+  <xs:complexType name="IdentifiableDTO">
+    <xs:sequence>
+      <xs:element name="_x003C_Id_x003E_k__BackingField" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IdentifiableDTO" nillable="true" type="tns:IdentifiableDTO" />
+  <xs:complexType name="ClassDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element name="_x003C_FinalYear_x003E_k__BackingField" type="xs:int" />
+          <xs:element name="_x003C_FirstYear_x003E_k__BackingField" type="xs:int" />
+          <xs:element name="_x003C_Room_x003E_k__BackingField" type="tns:RoomDTO" />
+          <xs:element name="_x003C_Teacher_x003E_k__BackingField" nillable="true" type="tns:PersonDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ClassDTO" nillable="true" type="tns:ClassDTO" />
+  <xs:simpleType name="RoomDTO">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedInt" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A201">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="A202">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="B305">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RoomDTO" nillable="true" type="tns:RoomDTO" />
+  <xs:simpleType name="PersonRoleDTO">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Student">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Teacher">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Administrator">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PersonRoleDTO" nillable="true" type="tns:PersonRoleDTO" />
+  <xs:complexType name="ArrayOfSubjectDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubjectDTO" nillable="true" type="tns:SubjectDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubjectDTO" nillable="true" type="tns:ArrayOfSubjectDTO" />
+  <xs:complexType name="SubjectDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element name="_x003C_Absences_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAbsenceDTO" />
+          <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+          <xs:element name="_x003C_Schedule_x003E_k__BackingField" nillable="true" type="tns:ScheduleDTO" />
+          <xs:element name="_x003C_Year_x003E_k__BackingField" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SubjectDTO" nillable="true" type="tns:SubjectDTO" />
+  <xs:complexType name="ArrayOfAbsenceDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AbsenceDTO" nillable="true" type="tns:AbsenceDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAbsenceDTO" nillable="true" type="tns:ArrayOfAbsenceDTO" />
+  <xs:complexType name="AbsenceDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element name="_x003C_Date_x003E_k__BackingField" type="xs:dateTime" />
+          <xs:element name="_x003C_Excused_x003E_k__BackingField" type="xs:boolean" />
+          <xs:element name="_x003C_Hour_x003E_k__BackingField" nillable="true" type="tns:TeachingHourDTO" />
+          <xs:element name="_x003C_Student_x003E_k__BackingField" nillable="true" type="tns:PersonDTO" />
+          <xs:element name="_x003C_Type_x003E_k__BackingField" type="tns:AbsenceTypeDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AbsenceDTO" nillable="true" type="tns:AbsenceDTO" />
+  <xs:complexType name="TeachingHourDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element name="_x003C_Day_x003E_k__BackingField" type="xs:int" />
+          <xs:element name="_x003C_Order_x003E_k__BackingField" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TeachingHourDTO" nillable="true" type="tns:TeachingHourDTO" />
+  <xs:simpleType name="AbsenceTypeDTO">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SchoolAction">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Absence">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AbsenceTypeDTO" nillable="true" type="tns:AbsenceTypeDTO" />
+  <xs:complexType name="ScheduleDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element name="_x003C_Hours_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTeachingHourDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ScheduleDTO" nillable="true" type="tns:ScheduleDTO" />
+  <xs:complexType name="ArrayOfTeachingHourDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TeachingHourDTO" nillable="true" type="tns:TeachingHourDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTeachingHourDTO" nillable="true" type="tns:ArrayOfTeachingHourDTO" />
+</xs:schema>

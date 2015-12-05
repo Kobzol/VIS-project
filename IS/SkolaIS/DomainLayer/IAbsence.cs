@@ -10,7 +10,7 @@ namespace DomainLayer
         DateTime Date { get; }
         AbsenceType Type { get; }
         bool Excused { get; }
-        IStudent Student { get; }
+        IPerson Student { get; }
         ITeachingHour Hour { get; }
     }
 }

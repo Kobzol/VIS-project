@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer.Repository
+namespace DomainLayer
 {
-    public interface ITeacherRepository : IRepository<ITeacher>
+    public enum PersonRole
     {
-        
+        Student = 1,
+        Teacher,
+        Administrator
     }
 }

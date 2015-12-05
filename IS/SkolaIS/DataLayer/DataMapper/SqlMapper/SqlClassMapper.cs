@@ -26,22 +26,20 @@ namespace DataLayer.DataMapper.SqlMapper
             get { return "INSERT INTO {0}(firstYear, finalYear, room, teacherId) VALUES(@firstYear, @finalYear, @room, @teacherId)".FormatWith(this.TableName); }
         }
 
-        private ITeacherRepository teacherRepository;
+        private IPersonRepository teacherRepository;
 
-        public SqlClassMapper(DatabaseConnection connection, ITeacherRepository teacherRepository) : base(connection)
+        public SqlClassMapper(DatabaseConnection connection, IPersonRepository teacherRepository)
+            : base(connection)
         {
             this.teacherRepository = teacherRepository;
         }
 
         protected override IClass LoadObject(SqlDataReader reader)
         {
-            ITeacher teacher = this.teacherRepository.Find(reader.GetColumnValue<long>("teacherID"));
-
             IClass klass = new Class(
                 reader.GetColumnValue<int>("firstYear"),
                 reader.GetColumnValue<int>("finalYear"),
-                (Room) Enum.Parse(typeof(Room), reader.GetColumnValue<int>("int").ToString()),
-                teacher
+                (Room) Enum.Parse(typeof(Room), reader.GetColumnValue<int>("room").ToString())
             );
 
             this.AddId(klass, this.GetId(reader));
@@ -55,8 +53,7 @@ namespace DataLayer.DataMapper.SqlMapper
             {
                 {"firstYear", t.FirstYear},
                 {"finalYear", t.FinalYear},
-                {"room", (uint) t.Room},
-                {"teacherID", t.Teacher.Id}
+                {"room", (uint) t.Room}
             };
         }
         protected override Dictionary<string, object> GetInsertValues(IClass t)

@@ -33,7 +33,7 @@ namespace DataLayer.DataMapper.SqlMapper
 
         public IEnumerable<ITeachingHour> FindByScheduleId(long scheduleId)
         {
-            SqlCommand command = this.Database.GetCommand(@"SELECT day, order FROM {0} h JOIN {1} sth
+            SqlCommand command = this.Database.GetCommand(@"SELECT h.id, h.day, h.[order] FROM {0} h JOIN {1} sth
                             ON sth.teachingHourId = h.id AND sth.scheduleId = @scheduleId".FormatWith(this.TableName, SqlScheduleMapper.SCHEDULE_HOUR_ASSOCIATION_TABLE));
             command.Parameters.AddWithValue("scheduleId", scheduleId);
 

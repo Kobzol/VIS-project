@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DomainLayer.Repository
+namespace DataTransfer
 {
-    public interface IStudentRepository : IRepository<IStudent>
+    [Serializable]
+    public enum PersonRoleDTO
     {
-        
+        Student = 1,
+        Teacher,
+        Administrator
     }
 }

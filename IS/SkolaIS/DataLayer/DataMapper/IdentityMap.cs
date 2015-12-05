@@ -30,5 +30,9 @@ namespace DataLayer.DataMapper
                 this.objects[obj.Id] = obj;
             }
         }
+        public void RemoveObject(T obj)
+        {
+            this.objects.Remove(obj.Id);
+        }
     }
 }

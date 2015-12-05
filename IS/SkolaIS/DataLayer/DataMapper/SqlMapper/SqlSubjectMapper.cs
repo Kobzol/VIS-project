@@ -37,19 +37,15 @@ namespace DataLayer.DataMapper.SqlMapper
 
         public IEnumerable<ISubject> FindByStudentId(long studentId)
         {
-            SqlCommand command = this.Database.GetCommand(@"SELECT name, year, scheduleId FROM {0} as sub
-                JOIN SubjectStudent as subStu ON sub.id = subStu.subjectId AND subStu.studentId = @studentId".FormatWith(this.TableName));
+            SqlCommand command = this.Database.GetCommand(@"SELECT sub.id, sub.name, sub.year, scheduleId FROM {0} as sub
+                JOIN SubjectPerson as subPer ON sub.id = subPer.subjectId AND subPer.personId = @studentId".FormatWith(this.TableName));
             command.Parameters.AddWithValue("studentId", studentId);
 
             return this.FindMultiple(command);
         }
         public IEnumerable<ISubject> FindByTeacherId(long teacherId)
         {
-            SqlCommand command = this.Database.GetCommand(@"SELECT name, year, scheduleId FROM {0} as sub
-                WHERE teacherId = @teacherId".FormatWith(this.TableName));
-            command.Parameters.AddWithValue("teacherId", teacherId);
-
-            return this.FindMultiple(command);
+            return this.FindByStudentId(teacherId);
         }
 
         protected override ISubject LoadObject(SqlDataReader reader)

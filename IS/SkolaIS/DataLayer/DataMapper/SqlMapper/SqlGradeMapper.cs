@@ -26,10 +26,11 @@ namespace DataLayer.DataMapper.SqlMapper
             get { return "INSERT INTO {0}(weight, value, studentId, testId) VALUES(@weight, @value, @studentId, @testId)".FormatWith(this.TableName); }
         }
 
-        private IStudentRepository studentRepository;
+        private IPersonRepository studentRepository;
         private ITestRepository testRepository;
 
-        public SqlGradeMapper(DatabaseConnection connection, IStudentRepository studentRepository, ITestRepository testRepository) : base(connection)
+        public SqlGradeMapper(DatabaseConnection connection, IPersonRepository studentRepository, ITestRepository testRepository)
+            : base(connection)
         {
             this.studentRepository = studentRepository;
             this.testRepository = testRepository;
@@ -45,7 +46,7 @@ namespace DataLayer.DataMapper.SqlMapper
 
         protected override IGrade LoadObject(SqlDataReader reader)
         {
-            IStudent student = this.studentRepository.Find(reader.GetColumnValue<long>("studentId"));
+            IPerson student = this.studentRepository.Find(reader.GetColumnValue<long>("studentId"));
             ITest test = this.testRepository.Find(reader.GetColumnValue<long>("testId"));
 
             IGrade grade = new Grade(

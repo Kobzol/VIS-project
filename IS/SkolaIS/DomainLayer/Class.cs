@@ -11,14 +11,12 @@ namespace DomainLayer
         public int FirstYear { get; private set; }
         public int FinalYear { get; private set; }
         public Room Room { get; private set; }
-        public ITeacher Teacher { get; private set; }
 
-        public Class(int firstYear, int finalYear, Room room, ITeacher teacher)
+        public Class(int firstYear, int finalYear, Room room)
         {
             this.FirstYear = firstYear;
             this.FinalYear = finalYear;
             this.Room = room;
-            this.Teacher = teacher;
         }
     }
 }

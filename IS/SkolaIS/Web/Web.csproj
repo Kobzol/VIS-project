@@ -99,6 +99,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Properties\DataSources\DataTransfer.PersonDTO.datasource" />
+    <None Include="Service References\WebService\SchoolService.wsdl" />
+    <None Include="Service References\WebService\SchoolService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WebService\SchoolService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WebService\SchoolService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Style\bootstrap-theme.less" />
     <None Include="Style\bootstrap.less" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -110,15 +121,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
-    <None Include="Service References\Service\SchoolService.disco" />
-    <None Include="Service References\Service\configuration91.svcinfo" />
-    <None Include="Service References\Service\configuration.svcinfo" />
-    <None Include="Service References\Service\Reference.svcmap">
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <None Include="Service References\WebService\SchoolService.disco" />
+    <None Include="Service References\WebService\configuration91.svcinfo" />
+    <None Include="Service References\WebService\configuration.svcinfo" />
+    <None Include="Service References\WebService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Style\bootstrap-theme.css">
       <DependentUpon>bootstrap-theme.less</DependentUpon>
     </Content>
@@ -138,24 +149,23 @@
       <DependentUpon>style.css</DependentUpon>
     </Content>
     <Content Include="Web.config" />
-    <None Include="Service References\Service\SchoolService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\Service\SchoolService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Authentication\IUserPrincipal.cs" />
+    <Compile Include="Models\Authentication\UserPrincipal.cs" />
+    <Compile Include="Models\Authentication\UserPrincipalModel.cs" />
     <Compile Include="Models\Login\LoginForm.cs" />
+    <Compile Include="Models\Service\ServiceProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\Service\Reference.cs">
+    <Compile Include="Service References\WebService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -164,14 +174,11 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <None Include="Service References\Service\SchoolService.wsdl" />
-    <None Include="Service References\Service\SchoolService.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Style\style.less" />
+    <Content Include="Views\Grade\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -184,16 +191,16 @@
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DomainLayer\DomainLayer.csproj">
-      <Project>{31794113-81a2-4273-81c9-257f37c1002c}</Project>
-      <Name>DomainLayer</Name>
+    <ProjectReference Include="..\DataTransfer\DataTransfer.csproj">
+      <Project>{668687b9-8e4b-408a-87c1-0ebd471ba874}</Project>
+      <Name>DataTransfer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\Service\" />
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\WebService\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

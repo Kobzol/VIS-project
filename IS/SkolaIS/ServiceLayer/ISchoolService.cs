@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using DomainLayer;
+using DataTransfer;
 
 namespace ServiceLayer
 {
@@ -13,6 +13,6 @@ namespace ServiceLayer
     public interface ISchoolService
     {
         [OperationContract]
-        Person GetPerson();
+        PersonDTO GetPerson(long id);
     }
 }

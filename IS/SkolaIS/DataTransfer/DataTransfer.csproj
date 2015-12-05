@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3A3A0BC0-DF83-4C4D-A98A-BAF985C6C76D}</ProjectGuid>
+    <ProjectGuid>{668687B9-8E4B-408A-87C1-0EBD471BA874}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataLayer</RootNamespace>
-    <AssemblyName>DataLayer</AssemblyName>
+    <RootNamespace>DataTransfer</RootNamespace>
+    <AssemblyName>DataTransfer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,30 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\DatabaseConnection.cs" />
-    <Compile Include="DataMapper\PersistenceException.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlAbsenceMapper.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlGradeMapper.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlPersonMapper.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlScheduleMapper.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlSubjectMapper.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlSupplementMapper.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlTeachingHourMapper.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlTestMapper.cs" />
-    <Compile Include="Helper\DatabaseHelper.cs" />
-    <Compile Include="DataMapper\IdentityMap.cs" />
-    <Compile Include="DataMapper\MetadataMapperLoader.cs" />
-    <Compile Include="DataMapper\SqlMapper\AbstractSqlMapper.cs" />
-    <Compile Include="DataMapper\SqlMapper\SqlClassMapper.cs" />
-    <Compile Include="DataMapper\XmlMapper\AbstractXmlMapper.cs" />
-    <Compile Include="Helper\StringHelper.cs" />
+    <Compile Include="AbsenceDTO.cs" />
+    <Compile Include="AbsenceTypeDTO.cs" />
+    <Compile Include="ClassDTO.cs" />
+    <Compile Include="GradeDTO.cs" />
+    <Compile Include="IdentifiableDTO.cs" />
+    <Compile Include="PersonDTO.cs" />
+    <Compile Include="PersonRoleDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DomainLayer\DomainLayer.csproj">
-      <Project>{31794113-81a2-4273-81c9-257f37c1002c}</Project>
-      <Name>DomainLayer</Name>
-    </ProjectReference>
+    <Compile Include="RoomDTO.cs" />
+    <Compile Include="ScheduleDTO.cs" />
+    <Compile Include="SubjectDTO.cs" />
+    <Compile Include="SupplementDTO.cs" />
+    <Compile Include="TeachingHourDTO.cs" />
+    <Compile Include="TestDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
