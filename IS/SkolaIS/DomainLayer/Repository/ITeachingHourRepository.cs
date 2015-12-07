@@ -9,5 +9,6 @@ namespace DomainLayer.Repository
     public interface ITeachingHourRepository : IRepository<ITeachingHour>
     {
         IEnumerable<ITeachingHour> FindByScheduleId(long scheduleId);
+        ITeachingHour FindByDayOrder(int day, int order);
     }
 }

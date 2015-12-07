@@ -17,5 +17,8 @@ namespace ServiceLayer
 
         [OperationContract]
         bool IsLoginValid(string username, string password);
+
+        [OperationContract]
+        bool AddSupplement(long subjectId, int day, int order, long teacherId);
     }
 }

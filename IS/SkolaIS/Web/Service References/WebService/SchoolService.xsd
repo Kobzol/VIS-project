@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DataTransfer" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataTransfer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="PersonDTO">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:IdentifiableDTO">
@@ -106,6 +107,7 @@
           <xs:element name="_x003C_Absences_x003E_k__BackingField" nillable="true" type="tns:ArrayOfAbsenceDTO" />
           <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
           <xs:element name="_x003C_Schedule_x003E_k__BackingField" nillable="true" type="tns:ScheduleDTO" />
+          <xs:element name="_x003C_Tests_x003E_k__BackingField" nillable="true" type="tns:ArrayOfTestDTO" />
           <xs:element name="_x003C_Year_x003E_k__BackingField" type="xs:int" />
         </xs:sequence>
       </xs:extension>
@@ -125,7 +127,7 @@
           <xs:element name="_x003C_Date_x003E_k__BackingField" type="xs:dateTime" />
           <xs:element name="_x003C_Excused_x003E_k__BackingField" type="xs:boolean" />
           <xs:element name="_x003C_Hour_x003E_k__BackingField" nillable="true" type="tns:TeachingHourDTO" />
-          <xs:element name="_x003C_Student_x003E_k__BackingField" nillable="true" type="tns:PersonDTO" />
+          <xs:element name="_x003C_Student_x003E_k__BackingField" type="xs:long" />
           <xs:element name="_x003C_Type_x003E_k__BackingField" type="tns:AbsenceTypeDTO" />
         </xs:sequence>
       </xs:extension>
@@ -178,4 +180,33 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfTeachingHourDTO" nillable="true" type="tns:ArrayOfTeachingHourDTO" />
+  <xs:complexType name="ArrayOfTestDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestDTO" nillable="true" type="tns:TestDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestDTO" nillable="true" type="tns:ArrayOfTestDTO" />
+  <xs:complexType name="TestDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element name="_x003C_Date_x003E_k__BackingField" type="xs:dateTime" />
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="_x003C_Grades_x003E_k__BackingField" nillable="true" type="q1:ArrayOfKeyValueOflongGradeDTOfCLFy91A" />
+          <xs:element name="_x003C_Name_x003E_k__BackingField" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TestDTO" nillable="true" type="tns:TestDTO" />
+  <xs:complexType name="GradeDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element name="_x003C_Value_x003E_k__BackingField" type="xs:double" />
+          <xs:element name="_x003C_Weight_x003E_k__BackingField" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GradeDTO" nillable="true" type="tns:GradeDTO" />
 </xs:schema>

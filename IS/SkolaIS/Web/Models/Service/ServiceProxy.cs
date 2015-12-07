@@ -20,5 +20,15 @@ namespace Web.Models.Service
         {
             return this.client.GetPerson(id);
         }
+
+        public bool IsLoginValid(string username, string password)
+        {
+            return this.client.IsLoginValid(username, password);
+        }
+
+        public bool AddSupplement(long subjectId, int day, int order, long teacherId)
+        {
+            return this.client.AddSupplement(subjectId, day, order, teacherId);
+        }
     }
 }

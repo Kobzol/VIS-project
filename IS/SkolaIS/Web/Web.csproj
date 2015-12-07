@@ -110,6 +110,9 @@
     <None Include="Service References\WebService\SchoolService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\WebService\SchoolService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Style\bootstrap-theme.less" />
     <None Include="Style\bootstrap.less" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

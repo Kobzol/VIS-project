@@ -44,9 +44,19 @@
         var order = availTeachers.find("input[name=selected-order]").val();
         var teacherId = availTeachers.find("select").val();
 
-        console.log(subjectId);
-        console.log(day);
-        console.log(order);
-        console.log(teacherId);
+        $.ajax({
+            url: "Schedule/AddSupplement",
+            method: "POST",
+            data: {
+                subjectId: subjectId,
+                day: day,
+                order: order,
+                teacherId: teacherId
+            },
+            success: function(response)
+            {
+                alert("Suplování bylo přidáno!");
+            }
+        });
     });
 });

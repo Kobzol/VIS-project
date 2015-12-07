@@ -22,5 +22,12 @@ namespace Web.Controllers
                 new { name = "Stříbný", id = 4}
             } });
         }
+
+        [HttpPost]
+        public ActionResult AddSupplement(long subjectId, int day, int order, long teacherId)
+        {
+            this.ServiceProxy.AddSupplement(subjectId, day, order, teacherId);
+            return Json("");
+        }
     }
 }

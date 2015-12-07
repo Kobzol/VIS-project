@@ -32,9 +32,30 @@ namespace ServiceLayer
             SchoolService.connection.Connect();
         }
 
+        [WebGet(UriTemplate="/GetPerson?id={id}")]
         public PersonDTO GetPerson(long id)
         {
             return DTOConverter.Convert(SchoolService.repo.Person.Find(id));
+        }
+
+        [WebGet(UriTemplate = "/IsLoginValid?username={username}&password={password}")]
+        public bool IsLoginValid(string username, string password)
+        {
+            return  (username == "student" && password == "student") ||
+                    (username == "teacher" && password == "teacher");
+        }
+
+        [WebGet(UriTemplate = "/AddSupplement?subjectId={subjectId}&day={day}&order={order}&teacherId={teacherId}")]
+        public bool AddSupplement(long subjectId, int day, int order, long teacherId)
+        {
+            ISubject subject = SchoolService.repo.Subject.Find(subjectId);
+            ITeachingHour hour = SchoolService.repo.TeachingHour.FindByDayOrder(day, order);
+
+            ISupplement supplement = new Supplement(false, DateTime.Now, hour, subject.Schedule);
+
+            SchoolService.repo.Supplement.Update(supplement);
+
+            return true;
         }
 
         private static void InitMappers(DatabaseConnection connection, RepoContainer repository)
@@ -64,12 +85,6 @@ namespace ServiceLayer
             repository.Test = testMapper;
             repository.Grade = gradeMapper;
             repository.Supplement = supplementMapper;
-        }
-
-
-        public bool IsLoginValid(string username, string password)
-        {
-            throw new NotImplementedException();
         }
     }
 }

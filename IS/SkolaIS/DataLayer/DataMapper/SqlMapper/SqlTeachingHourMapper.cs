@@ -40,6 +40,15 @@ namespace DataLayer.DataMapper.SqlMapper
             return this.FindMultiple(command);
         }
 
+        public ITeachingHour FindByDayOrder(int day, int order)
+        {
+            SqlCommand command = this.Database.GetCommand("SELECT id, [day], [order] FROM {0} WHERE [day] = @day AND [order] = @order".FormatWith(this.TableName, SqlScheduleMapper.SCHEDULE_HOUR_ASSOCIATION_TABLE));
+            command.Parameters.AddWithValue("day", day);
+            command.Parameters.AddWithValue("order", order);
+
+            return this.LoadObjectFromCache(command.ExecuteReader());
+        }
+
         protected override ITeachingHour LoadObject(SqlDataReader reader)
         {
             ITeachingHour hour = new TeachingHour(

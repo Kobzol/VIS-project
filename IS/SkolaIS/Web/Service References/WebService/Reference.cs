@@ -17,6 +17,12 @@ namespace Web.WebService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/GetPerson", ReplyAction="http://tempuri.org/ISchoolService/GetPersonResponse")]
         DataTransfer.PersonDTO GetPerson(long id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/IsLoginValid", ReplyAction="http://tempuri.org/ISchoolService/IsLoginValidResponse")]
+        bool IsLoginValid(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/AddSupplement", ReplyAction="http://tempuri.org/ISchoolService/AddSupplementResponse")]
+        bool AddSupplement(long subjectId, int day, int order, long teacherId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -48,6 +54,14 @@ namespace Web.WebService {
         
         public DataTransfer.PersonDTO GetPerson(long id) {
             return base.Channel.GetPerson(id);
+        }
+        
+        public bool IsLoginValid(string username, string password) {
+            return base.Channel.IsLoginValid(username, password);
+        }
+        
+        public bool AddSupplement(long subjectId, int day, int order, long teacherId) {
+            return base.Channel.AddSupplement(subjectId, day, order, teacherId);
         }
     }
 }

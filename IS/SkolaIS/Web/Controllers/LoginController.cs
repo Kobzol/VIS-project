@@ -56,8 +56,7 @@ namespace Web.Controllers
 
         private bool IsLoginValid(string username, string password)
         {
-            return  (username == "student" && password == "student") ||
-                    (username == "teacher" && password == "teacher");
+            return this.ServiceProxy.IsLoginValid(username, password);
         }
     }
 }

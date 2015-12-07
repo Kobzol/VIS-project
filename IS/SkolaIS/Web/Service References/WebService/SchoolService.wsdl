@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataTransfer" />
+      <xsd:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ISchoolService_GetPerson_InputMessage">
@@ -13,16 +14,54 @@
   <wsdl:message name="ISchoolService_GetPerson_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPersonResponse" />
   </wsdl:message>
+  <wsdl:message name="ISchoolService_IsLoginValid_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsLoginValid" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_IsLoginValid_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsLoginValidResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_AddSupplement_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddSupplement" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_AddSupplement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddSupplementResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISchoolService">
     <wsdl:operation name="GetPerson">
       <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/GetPerson" message="tns:ISchoolService_GetPerson_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/GetPersonResponse" message="tns:ISchoolService_GetPerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsLoginValid">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/IsLoginValid" message="tns:ISchoolService_IsLoginValid_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/IsLoginValidResponse" message="tns:ISchoolService_IsLoginValid_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddSupplement">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/AddSupplement" message="tns:ISchoolService_AddSupplement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/AddSupplementResponse" message="tns:ISchoolService_AddSupplement_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISchoolService" type="tns:ISchoolService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetPerson">
       <soap:operation soapAction="http://tempuri.org/ISchoolService/GetPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IsLoginValid">
+      <soap:operation soapAction="http://tempuri.org/ISchoolService/IsLoginValid" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddSupplement">
+      <soap:operation soapAction="http://tempuri.org/ISchoolService/AddSupplement" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

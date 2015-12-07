@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DataTransfer
 {
     [Serializable]
-    public class Supplement : IdentifiableDTO
+    public class SupplementDTO : IdentifiableDTO
     {
         public bool IsHourCanceled { get; set; }
         public DateTime Date { get; set; }
