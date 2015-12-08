@@ -18,11 +18,23 @@ namespace Web.WebService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/GetPerson", ReplyAction="http://tempuri.org/ISchoolService/GetPersonResponse")]
         DataTransfer.PersonDTO GetPerson(long id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/GetTeachers", ReplyAction="http://tempuri.org/ISchoolService/GetTeachersResponse")]
+        System.Collections.Generic.List<DataTransfer.PersonDTO> GetTeachers();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/IsLoginValid", ReplyAction="http://tempuri.org/ISchoolService/IsLoginValidResponse")]
         bool IsLoginValid(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/AddSupplement", ReplyAction="http://tempuri.org/ISchoolService/AddSupplementResponse")]
         bool AddSupplement(long subjectId, int day, int order, long teacherId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/AddSupplementCancel", ReplyAction="http://tempuri.org/ISchoolService/AddSupplementCancelResponse")]
+        bool AddSupplementCancel(long subjectId, int day, int order);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/GetSupplements", ReplyAction="http://tempuri.org/ISchoolService/GetSupplementsResponse")]
+        System.Collections.Generic.List<DataTransfer.SupplementDTO> GetSupplements(long subjectId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISchoolService/TestGetGrades", ReplyAction="http://tempuri.org/ISchoolService/TestGetGradesResponse")]
+        System.Collections.Generic.List<DataTransfer.GradeDTO> TestGetGrades();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -56,12 +68,28 @@ namespace Web.WebService {
             return base.Channel.GetPerson(id);
         }
         
+        public System.Collections.Generic.List<DataTransfer.PersonDTO> GetTeachers() {
+            return base.Channel.GetTeachers();
+        }
+        
         public bool IsLoginValid(string username, string password) {
             return base.Channel.IsLoginValid(username, password);
         }
         
         public bool AddSupplement(long subjectId, int day, int order, long teacherId) {
             return base.Channel.AddSupplement(subjectId, day, order, teacherId);
+        }
+        
+        public bool AddSupplementCancel(long subjectId, int day, int order) {
+            return base.Channel.AddSupplementCancel(subjectId, day, order);
+        }
+        
+        public System.Collections.Generic.List<DataTransfer.SupplementDTO> GetSupplements(long subjectId) {
+            return base.Channel.GetSupplements(subjectId);
+        }
+        
+        public System.Collections.Generic.List<DataTransfer.GradeDTO> TestGetGrades() {
+            return base.Channel.TestGetGrades();
         }
     }
 }

@@ -42,11 +42,18 @@ namespace DataLayer.DataMapper.SqlMapper
 
         public ITeachingHour FindByDayOrder(int day, int order)
         {
-            SqlCommand command = this.Database.GetCommand("SELECT id, [day], [order] FROM {0} WHERE [day] = @day AND [order] = @order".FormatWith(this.TableName, SqlScheduleMapper.SCHEDULE_HOUR_ASSOCIATION_TABLE));
+            SqlCommand command = this.Database.GetCommand("SELECT id, [day], [order] FROM {0} WHERE [day] = @day AND [order] = @order".FormatWith(this.TableName));
             command.Parameters.AddWithValue("day", day);
             command.Parameters.AddWithValue("order", order);
 
-            return this.LoadObjectFromCache(command.ExecuteReader());
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                reader.Read();
+
+                ITeachingHour hour = this.LoadObjectFromCache(reader);
+
+                return hour;
+            }
         }
 
         protected override ITeachingHour LoadObject(SqlDataReader reader)

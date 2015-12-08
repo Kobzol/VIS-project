@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataTransfer" />
+  <xs:import schemaLocation="http://localhost:5858/SchoolService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataTransfer" />
   <xs:complexType name="ArrayOfKeyValueOflongGradeDTOfCLFy91A">
     <xs:annotation>
       <xs:appinfo>

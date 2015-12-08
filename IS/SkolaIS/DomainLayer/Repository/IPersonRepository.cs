@@ -8,6 +8,7 @@ namespace DomainLayer.Repository
 {
     public interface IPersonRepository : IRepository<IPerson>
     {
-
+        IEnumerable<IPerson> FindBySubject(long subjectId);
+        IEnumerable<IPerson> FindByRole(PersonRole personRole);
     }
 }

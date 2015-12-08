@@ -30,5 +30,19 @@ namespace Web.Models.Service
         {
             return this.client.AddSupplement(subjectId, day, order, teacherId);
         }
+        public bool AddSupplementCancel(long subjectId, int day, int order)
+        {
+            return this.client.AddSupplementCancel(subjectId, day, order);
+        }
+
+        public IEnumerable<SupplementDTO> GetSupplements(long subjectId)
+        {
+            return this.client.GetSupplements(subjectId);
+        }
+
+        public List<PersonDTO> GetTeachers()
+        {
+            return this.client.GetTeachers();
+        }
     }
 }

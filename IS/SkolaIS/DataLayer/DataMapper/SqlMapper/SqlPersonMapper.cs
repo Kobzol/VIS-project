@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,24 @@ namespace DataLayer.DataMapper.SqlMapper
             this.ClassRepository = classRepository;
         }
 
-        protected override IPerson LoadObject(System.Data.SqlClient.SqlDataReader reader)
+        public IEnumerable<IPerson> FindBySubject(long subjectId)
+        {
+            SqlCommand command = this.Database.GetCommand(@"SELECT p.id, p.role, p.name, p.surname, p.birthDate, p.email, p.classId FROM {0} as p
+            JOIN SubjectPerson as sp ON sp.personId = p.id AND sp.subjectId = @subjectId AND p.role = 2".FormatWith(this.TableName));
+            command.Parameters.AddWithValue("subjectId", subjectId);
+
+            return this.FindMultiple(command);
+        }
+
+        public IEnumerable<IPerson> FindByRole(PersonRole personRole)
+        {
+            SqlCommand command = this.Database.GetCommand(@"SELECT id, role, name, surname, birthDate, email, classId FROM {0} WHERE role = @role".FormatWith(this.TableName));
+            command.Parameters.AddWithValue("role", (int) personRole);
+
+            return this.FindMultiple(command);
+        }
+
+        protected override IPerson LoadObject(SqlDataReader reader)
         {
             long id = this.GetId(reader);
             PersonRole role = (PersonRole) Enum.Parse(typeof(PersonRole), reader.GetColumnValue<int>("role").ToString());
@@ -68,11 +86,19 @@ namespace DataLayer.DataMapper.SqlMapper
 
         protected override Dictionary<string, object> GetUpdateValues(IPerson t)
         {
-            throw new NotImplementedException();
+            return new Dictionary<string, object>()
+            {
+                {"role", (int) t.Role},
+                {"name", t.Name},
+                {"surname", t.Surname},
+                {"birthDate", t.BirthDate},
+                {"email", t.Email},
+                {"classId", t.Class.Id}
+            };
         }
         protected override Dictionary<string, object> GetInsertValues(IPerson t)
         {
-            throw new NotImplementedException();
+            return this.GetUpdateValues(t);
         }
     }
 }

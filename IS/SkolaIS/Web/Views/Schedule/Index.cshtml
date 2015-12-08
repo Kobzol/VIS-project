@@ -1,13 +1,13 @@
-﻿@model IEnumerable<SubjectDTO>
+﻿@model IEnumerable<ScheduleModel>
 @functions
 {
-    public static SubjectDTO FindHour(int day, int order, IEnumerable<SubjectDTO> subjects)
+    public static ScheduleModel FindHour(IEnumerable<ScheduleModel> subjects, int day, int order)
     {
-        foreach (SubjectDTO subject in subjects)
+        foreach (ScheduleModel subject in subjects)
         {
             IEnumerable<TeachingHourDTO> hour =
                                    from h
-                                   in subject.Schedule.Hours
+                                   in subject.Subject.Schedule.Hours
                                    where h.Day == day && h.Order == order
                                    select h;
                                    
@@ -19,6 +19,15 @@
 
         return null;
     }
+    
+    public static SupplementDTO FindSupplement(ScheduleModel scheduleModel, int day, int order)
+    {
+        return
+            (from supplement
+            in scheduleModel.Supplements
+            where supplement.Hour.Day == day && supplement.Hour.Order == order
+            select supplement).SingleOrDefault();
+    }
 }
 <h1>Schedule</h1>
 <table class="schedule" border="1">
@@ -29,29 +38,45 @@
             <th>Hour #@i</th>
         }
     </tr>
-    @for (int i = 0; i < 5; i++)
+    @for (int i = 1; i <= 5; i++)
     {
         string dayName = System.Threading.Thread.CurrentThread.CurrentUICulture.DateTimeFormat.GetDayName((DayOfWeek)(DayOfWeek.Monday + i));
         <tr>
             <td>@dayName</td>
-            @for (int j = 0; j < 8; j++)
+            @for (int j = 1; j <= 8; j++)
             {
-                SubjectDTO subject = FindHour(i, j, Model);
+                ScheduleModel subject = FindHour(Model, i, j);
 
                 if (subject != null)
                 {
-                    <td>
-                        @subject.Name
+                    SupplementDTO supplement = FindSupplement(subject, i, j);
 
-                    @if (this.BasePage.Person.IsTeacher())
-                    {
-                        <div class="supplement-wrapper">
-                            <input type="hidden" name="subjectId" value="@subject.Id" />
-                            <input type="hidden" name="day" value="@i" />
-                            <input type="hidden" name="order" value="@j" />
-                            <button class="supplement-list">S</button>
-                        </div>
-                    }
+                    <td>
+                        @subject.Subject.Name
+
+                        @if (supplement != null)
+                        {
+                            <div class="supplement">
+                            @if (supplement.IsHourCanceled)
+                            {
+                                @: Hour is canceled
+                            }
+                            else
+                            {
+                                @: (supplied by @supplement.Teacher.Surname)
+                            }
+                            </div>
+                        }
+
+                        @if (supplement == null && this.BasePage.Person.IsTeacher())
+                        {
+                            <div class="supplement-wrapper">
+                                <input type="hidden" name="subjectId" value="@subject.Subject.Id" />
+                                <input type="hidden" name="day" value="@i" />
+                                <input type="hidden" name="order" value="@j" />
+                                <button class="supplement-list">S</button>
+                            </div>
+                        }
                     </td>
                 }
                 else
@@ -63,10 +88,12 @@
     }
 </table>
 <div class="available-teachers">
+    <div class="info"></div>
     <input type="hidden" name="selected-subject" />
     <input type="hidden" name="selected-day" />
     <input type="hidden" name="selected-order" />
-    <div class="list">
-
+    <div class="list"></div>
+    <div class="cancel">
+        <button class="cancel-send">Cancel the lesson</button>
     </div>
 </div>

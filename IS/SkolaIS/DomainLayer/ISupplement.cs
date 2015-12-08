@@ -11,5 +11,6 @@ namespace DomainLayer
         DateTime Date { get; }
         ITeachingHour Hour { get; }
         ISchedule Schedule { get; }
+        IPerson Teacher { get; }
     }
 }

@@ -55,6 +55,9 @@
 .available-teachers {
   margin-top: 10px;
 }
+.available-teachers .cancel {
+  display: none;
+}
 .error {
   color: red;
 }

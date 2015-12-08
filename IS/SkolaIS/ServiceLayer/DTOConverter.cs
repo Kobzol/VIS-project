@@ -45,7 +45,8 @@ namespace ServiceLayer
                 Email = teacher.Email,
                 Role = Convert(teacher.Role),
                 Surname = teacher.Surname,
-                Subjects = ConvertAll(teacher.Subjects)
+                Subjects = ConvertAll(teacher.Subjects),
+                Class = Convert(teacher.Class)
             };
         }
         public static PersonRoleDTO Convert(PersonRole role)
@@ -104,6 +105,17 @@ namespace ServiceLayer
                 Grades = ConvertAll(test.Grades)
             };
         }
+        public static SupplementDTO Convert(ISupplement supplement)
+        {
+            return new SupplementDTO()
+            {
+                Id = supplement.Id,
+                IsHourCanceled = supplement.IsHourCanceled,
+                Hour = Convert(supplement.Hour),
+                Schedule = Convert(supplement.Schedule),
+                Teacher = supplement.Teacher == null ? null : Convert(supplement.Teacher)
+            };
+        }
 
         public static IEnumerable<AbsenceDTO> ConvertAll(IEnumerable<IAbsence> absences)
         {
@@ -149,6 +161,29 @@ namespace ServiceLayer
 
             return converted;
         }
+        public static IEnumerable<SupplementDTO> ConvertAll(IEnumerable<ISupplement> supplements)
+        {
+            List<SupplementDTO> converted = new List<SupplementDTO>();
+
+            foreach (ISupplement supplement in supplements)
+            {
+                converted.Add(Convert(supplement));
+            }
+
+            return converted;
+        }
+        public static IEnumerable<PersonDTO> ConvertAll(IEnumerable<IPerson> people)
+        {
+            List<PersonDTO> converted = new List<PersonDTO>();
+
+            foreach (IPerson person in people)
+            {
+                converted.Add(Convert(person));
+            }
+
+            return converted;
+        }
+
         public static IEnumerable<TestDTO> ConvertAll(IEnumerable<ITest> tests)
         {
             List<TestDTO> converted = new List<TestDTO>();

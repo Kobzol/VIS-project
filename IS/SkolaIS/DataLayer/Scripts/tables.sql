@@ -51,6 +51,7 @@ CREATE TABLE [dbo].[Supplement]
 	[date] DATE NOT NULL,
 	[scheduleId] BIGINT NOT NULL,
 	[teachingHourId] BIGINT NOT NULL,
+	[teacherId] BIGINT NULL,
 	[created_at] DATETIME NOT NULL DEFAULT GETDATE()
 )
 
@@ -107,6 +108,7 @@ ALTER TABLE dbo.SubjectPerson ADD CONSTRAINT fkSubjectPersonPerson FOREIGN KEY (
 ALTER TABLE dbo.SubjectPerson ADD CONSTRAINT fkSubjectPersonSubject FOREIGN KEY (subjectId) REFERENCES Subject(id);
 ALTER TABLE dbo.Supplement ADD CONSTRAINT fkSupplementSchedule FOREIGN KEY (scheduleId) REFERENCES Schedule(id);
 ALTER TABLE dbo.Supplement ADD CONSTRAINT fkSupplementTeachingHour FOREIGN KEY (teachingHourId) REFERENCES TeachingHour(id);
+ALTER TABLE dbo.Supplement ADD CONSTRAINT fkSupplementTeacher FOREIGN KEY (teacherId) REFERENCES Person(id);
 ALTER TABLE dbo.ScheduleTeachingHour ADD CONSTRAINT fkScheduleTeachingHourSchedule FOREIGN KEY (scheduleId) REFERENCES Schedule(id);
 ALTER TABLE dbo.ScheduleTeachingHour ADD CONSTRAINT fkScheduleTeachingHourTeachingHour FOREIGN KEY (teachingHourId) REFERENCES TeachingHour(id);
 ALTER TABLE dbo.Absence ADD CONSTRAINT fkAbsenceStudent FOREIGN KEY (studentId) REFERENCES Person(id);

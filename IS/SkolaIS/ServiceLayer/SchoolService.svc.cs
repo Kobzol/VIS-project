@@ -12,6 +12,8 @@ using DataLayer.DataMapper.XmlMapper;
 using DataTransfer;
 using DomainLayer;
 using DomainLayer.Repository;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace ServiceLayer
 {
@@ -26,7 +28,7 @@ namespace ServiceLayer
             SchoolService.repo = RepoContainer.Instance;
             SchoolService.InitMappers(SchoolService.connection, SchoolService.repo);
         }
-
+        
         public SchoolService()
         {
             SchoolService.connection.Connect();
@@ -50,12 +52,45 @@ namespace ServiceLayer
         {
             ISubject subject = SchoolService.repo.Subject.Find(subjectId);
             ITeachingHour hour = SchoolService.repo.TeachingHour.FindByDayOrder(day, order);
-
-            ISupplement supplement = new Supplement(false, DateTime.Now, hour, subject.Schedule);
+            IPerson teacher = SchoolService.repo.Person.Find(teacherId);
+            ISupplement supplement = new Supplement(false, DateTime.Now, hour, subject.Schedule, teacher);
 
             SchoolService.repo.Supplement.Update(supplement);
 
             return true;
+        }
+
+        [WebGet(UriTemplate = "/AddSupplementCancel?subjectId={subjectId}&day={day}&order={order}")]
+        public bool AddSupplementCancel(long subjectId, int day, int order)
+        {
+            ISubject subject = SchoolService.repo.Subject.Find(subjectId);
+            ITeachingHour hour = SchoolService.repo.TeachingHour.FindByDayOrder(day, order);
+            ISupplement supplement = new Supplement(true, DateTime.Now, hour, subject.Schedule);
+
+            SchoolService.repo.Supplement.Update(supplement);
+
+            return true;
+        }
+
+        public IEnumerable<PersonDTO> GetTeachers()
+        {
+            return DTOConverter.ConvertAll(SchoolService.repo.Person.FindByRole(PersonRole.Teacher));
+        }
+
+        public IEnumerable<SupplementDTO> GetSupplements(long subjectId)
+        {
+            return DTOConverter.ConvertAll(SchoolService.repo.Supplement.FindBySubjectId(subjectId));
+        }
+        
+        [WebGet(UriTemplate = "/TestGetGrades")]
+        public IEnumerable<GradeDTO> TestGetGrades()
+        {
+            return new List<GradeDTO>()
+            {
+                new GradeDTO() {Id = 1, Value = 2, Weight = 5},
+                new GradeDTO() {Id = 2, Value = 3, Weight = 4},
+                new GradeDTO() {Id = 3, Value = 1, Weight = 8}
+            };
         }
 
         private static void InitMappers(DatabaseConnection connection, RepoContainer repository)
@@ -70,7 +105,7 @@ namespace ServiceLayer
             SqlSubjectMapper subjectMapper = new SqlSubjectMapper(connection, absenceMapper, scheduleMapper, testMapper);
             SqlClassMapper classMapper = new SqlClassMapper(connection, personMapper);
             SqlGradeMapper gradeMapper = new SqlGradeMapper(connection);
-            SqlSupplementMapper supplementMapper = new SqlSupplementMapper(connection, teachingHourMapper, scheduleMapper);
+            SqlSupplementMapper supplementMapper = new SqlSupplementMapper(connection, teachingHourMapper, scheduleMapper, personMapper);
 
             personMapper.SubjectRepository = subjectMapper; // break object cycle
             personMapper.ClassRepository = classMapper;

@@ -2,10 +2,10 @@
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SchoolService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataTransfer" />
-      <xsd:import schemaLocation="http://localhost:5857/SchoolService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:5858/SchoolService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:5858/SchoolService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:5858/SchoolService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DataTransfer" />
+      <xsd:import schemaLocation="http://localhost:5858/SchoolService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ISchoolService_GetPerson_InputMessage">
@@ -13,6 +13,12 @@
   </wsdl:message>
   <wsdl:message name="ISchoolService_GetPerson_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPersonResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_GetTeachers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeachers" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_GetTeachers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeachersResponse" />
   </wsdl:message>
   <wsdl:message name="ISchoolService_IsLoginValid_InputMessage">
     <wsdl:part name="parameters" element="tns:IsLoginValid" />
@@ -26,10 +32,32 @@
   <wsdl:message name="ISchoolService_AddSupplement_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddSupplementResponse" />
   </wsdl:message>
+  <wsdl:message name="ISchoolService_AddSupplementCancel_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddSupplementCancel" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_AddSupplementCancel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddSupplementCancelResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_GetSupplements_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupplements" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_GetSupplements_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSupplementsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_TestGetGrades_InputMessage">
+    <wsdl:part name="parameters" element="tns:TestGetGrades" />
+  </wsdl:message>
+  <wsdl:message name="ISchoolService_TestGetGrades_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TestGetGradesResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISchoolService">
     <wsdl:operation name="GetPerson">
       <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/GetPerson" message="tns:ISchoolService_GetPerson_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/GetPersonResponse" message="tns:ISchoolService_GetPerson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeachers">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/GetTeachers" message="tns:ISchoolService_GetTeachers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/GetTeachersResponse" message="tns:ISchoolService_GetTeachers_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="IsLoginValid">
       <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/IsLoginValid" message="tns:ISchoolService_IsLoginValid_InputMessage" />
@@ -39,11 +67,32 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/AddSupplement" message="tns:ISchoolService_AddSupplement_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/AddSupplementResponse" message="tns:ISchoolService_AddSupplement_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="AddSupplementCancel">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/AddSupplementCancel" message="tns:ISchoolService_AddSupplementCancel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/AddSupplementCancelResponse" message="tns:ISchoolService_AddSupplementCancel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplements">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/GetSupplements" message="tns:ISchoolService_GetSupplements_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/GetSupplementsResponse" message="tns:ISchoolService_GetSupplements_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TestGetGrades">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISchoolService/TestGetGrades" message="tns:ISchoolService_TestGetGrades_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISchoolService/TestGetGradesResponse" message="tns:ISchoolService_TestGetGrades_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISchoolService" type="tns:ISchoolService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetPerson">
       <soap:operation soapAction="http://tempuri.org/ISchoolService/GetPerson" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeachers">
+      <soap:operation soapAction="http://tempuri.org/ISchoolService/GetTeachers" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -69,10 +118,37 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="AddSupplementCancel">
+      <soap:operation soapAction="http://tempuri.org/ISchoolService/AddSupplementCancel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSupplements">
+      <soap:operation soapAction="http://tempuri.org/ISchoolService/GetSupplements" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TestGetGrades">
+      <soap:operation soapAction="http://tempuri.org/ISchoolService/TestGetGrades" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="SchoolService">
     <wsdl:port name="BasicHttpBinding_ISchoolService" binding="tns:BasicHttpBinding_ISchoolService">
-      <soap:address location="http://localhost:5857/SchoolService.svc" />
+      <soap:address location="http://localhost:5858/SchoolService.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

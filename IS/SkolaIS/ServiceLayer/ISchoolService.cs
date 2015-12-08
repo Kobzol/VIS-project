@@ -16,9 +16,21 @@ namespace ServiceLayer
         PersonDTO GetPerson(long id);
 
         [OperationContract]
+        IEnumerable<PersonDTO> GetTeachers();
+
+        [OperationContract]
         bool IsLoginValid(string username, string password);
 
         [OperationContract]
         bool AddSupplement(long subjectId, int day, int order, long teacherId);
+
+        [OperationContract]
+        bool AddSupplementCancel(long subjectId, int day, int order);
+
+        [OperationContract]
+        IEnumerable<SupplementDTO> GetSupplements(long subjectId);
+
+        [OperationContract]
+        IEnumerable<GradeDTO> TestGetGrades();
     }
 }

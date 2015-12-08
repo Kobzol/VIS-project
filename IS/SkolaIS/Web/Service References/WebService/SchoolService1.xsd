@@ -1,42 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="anyType" nillable="true" type="xs:anyType" />
-  <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
-  <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
-  <xs:element name="boolean" nillable="true" type="xs:boolean" />
-  <xs:element name="byte" nillable="true" type="xs:byte" />
-  <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
-  <xs:element name="decimal" nillable="true" type="xs:decimal" />
-  <xs:element name="double" nillable="true" type="xs:double" />
-  <xs:element name="float" nillable="true" type="xs:float" />
-  <xs:element name="int" nillable="true" type="xs:int" />
-  <xs:element name="long" nillable="true" type="xs:long" />
-  <xs:element name="QName" nillable="true" type="xs:QName" />
-  <xs:element name="short" nillable="true" type="xs:short" />
-  <xs:element name="string" nillable="true" type="xs:string" />
-  <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
-  <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
-  <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
-  <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
-  <xs:element name="char" nillable="true" type="tns:char" />
-  <xs:simpleType name="char">
-    <xs:restriction base="xs:int" />
-  </xs:simpleType>
-  <xs:element name="duration" nillable="true" type="tns:duration" />
-  <xs:simpleType name="duration">
-    <xs:restriction base="xs:duration">
-      <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
-      <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
-      <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="guid" nillable="true" type="tns:guid" />
-  <xs:simpleType name="guid">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DataTransfer" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataTransfer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:5858/SchoolService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:5858/SchoolService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="PersonDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BirthDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Class" nillable="true" type="tns:ClassDTO" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Role" type="tns:PersonRoleDTO" />
+          <xs:element minOccurs="0" name="Subjects" nillable="true" type="tns:ArrayOfSubjectDTO" />
+          <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PersonDTO" nillable="true" type="tns:PersonDTO" />
+  <xs:complexType name="IdentifiableDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="IdentifiableDTO" nillable="true" type="tns:IdentifiableDTO" />
+  <xs:complexType name="ClassDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="FinalYear" type="xs:int" />
+          <xs:element minOccurs="0" name="FirstYear" type="xs:int" />
+          <xs:element minOccurs="0" name="Room" type="tns:RoomDTO" />
+          <xs:element minOccurs="0" name="Teacher" nillable="true" type="tns:PersonDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ClassDTO" nillable="true" type="tns:ClassDTO" />
+  <xs:simpleType name="RoomDTO">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedInt" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+      <xs:enumeration value="A201">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="A202">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="B305">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
-  <xs:attribute name="FactoryType" type="xs:QName" />
-  <xs:attribute name="Id" type="xs:ID" />
-  <xs:attribute name="Ref" type="xs:IDREF" />
+  <xs:element name="RoomDTO" nillable="true" type="tns:RoomDTO" />
+  <xs:simpleType name="PersonRoleDTO">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Student">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Teacher">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Administrator">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PersonRoleDTO" nillable="true" type="tns:PersonRoleDTO" />
+  <xs:complexType name="ArrayOfSubjectDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SubjectDTO" nillable="true" type="tns:SubjectDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSubjectDTO" nillable="true" type="tns:ArrayOfSubjectDTO" />
+  <xs:complexType name="SubjectDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Absences" nillable="true" type="tns:ArrayOfAbsenceDTO" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Schedule" nillable="true" type="tns:ScheduleDTO" />
+          <xs:element minOccurs="0" name="Tests" nillable="true" type="tns:ArrayOfTestDTO" />
+          <xs:element minOccurs="0" name="Year" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SubjectDTO" nillable="true" type="tns:SubjectDTO" />
+  <xs:complexType name="ArrayOfAbsenceDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AbsenceDTO" nillable="true" type="tns:AbsenceDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAbsenceDTO" nillable="true" type="tns:ArrayOfAbsenceDTO" />
+  <xs:complexType name="AbsenceDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Excused" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Hour" nillable="true" type="tns:TeachingHourDTO" />
+          <xs:element minOccurs="0" name="Student" type="xs:long" />
+          <xs:element minOccurs="0" name="Type" type="tns:AbsenceTypeDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AbsenceDTO" nillable="true" type="tns:AbsenceDTO" />
+  <xs:complexType name="TeachingHourDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Day" type="xs:int" />
+          <xs:element minOccurs="0" name="Order" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TeachingHourDTO" nillable="true" type="tns:TeachingHourDTO" />
+  <xs:simpleType name="AbsenceTypeDTO">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SchoolAction">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Absence">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="AbsenceTypeDTO" nillable="true" type="tns:AbsenceTypeDTO" />
+  <xs:complexType name="ScheduleDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Hours" nillable="true" type="tns:ArrayOfTeachingHourDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ScheduleDTO" nillable="true" type="tns:ScheduleDTO" />
+  <xs:complexType name="ArrayOfTeachingHourDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TeachingHourDTO" nillable="true" type="tns:TeachingHourDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTeachingHourDTO" nillable="true" type="tns:ArrayOfTeachingHourDTO" />
+  <xs:complexType name="ArrayOfTestDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TestDTO" nillable="true" type="tns:TestDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTestDTO" nillable="true" type="tns:ArrayOfTestDTO" />
+  <xs:complexType name="TestDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Grades" nillable="true" type="q1:ArrayOfKeyValueOflongGradeDTOfCLFy91A" />
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TestDTO" nillable="true" type="tns:TestDTO" />
+  <xs:complexType name="GradeDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Value" type="xs:double" />
+          <xs:element minOccurs="0" name="Weight" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GradeDTO" nillable="true" type="tns:GradeDTO" />
+  <xs:complexType name="ArrayOfPersonDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PersonDTO" nillable="true" type="tns:PersonDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPersonDTO" nillable="true" type="tns:ArrayOfPersonDTO" />
+  <xs:complexType name="ArrayOfSupplementDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SupplementDTO" nillable="true" type="tns:SupplementDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSupplementDTO" nillable="true" type="tns:ArrayOfSupplementDTO" />
+  <xs:complexType name="SupplementDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:IdentifiableDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Hour" nillable="true" type="tns:TeachingHourDTO" />
+          <xs:element minOccurs="0" name="IsHourCanceled" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Schedule" nillable="true" type="tns:ScheduleDTO" />
+          <xs:element minOccurs="0" name="Teacher" nillable="true" type="tns:PersonDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SupplementDTO" nillable="true" type="tns:SupplementDTO" />
+  <xs:complexType name="ArrayOfGradeDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GradeDTO" nillable="true" type="tns:GradeDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGradeDTO" nillable="true" type="tns:ArrayOfGradeDTO" />
 </xs:schema>
